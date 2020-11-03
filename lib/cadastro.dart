@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:colaborae/constants.dart';
 
 class Cadastro extends StatefulWidget {
   @override
@@ -6,14 +7,13 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-
-  Widget Spacing(double h){
+  Widget Spacing(double h) {
     return SizedBox(
       height: h,
     );
   }
 
-  Widget Field(String label, String hint){
+  Widget Field(String label, String hint) {
     return Column(
       children: <Widget>[
         // Container(
@@ -42,9 +42,7 @@ class _CadastroState extends State<Cadastro> {
               isDense: true,
               contentPadding: EdgeInsets.all(15.0),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0)
-                ),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(
                   color: Colors.grey,
                 ),
@@ -68,22 +66,26 @@ class _CadastroState extends State<Cadastro> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Spacing(20.0),
-                CircleAvatar(
-                  radius: 55.0,
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('images/gift_50px.png'),
+                //CircleAvatar(
+                //radius: 55.0,
+                //backgroundColor: Colors.white,
+                //backgroundImage: AssetImage('images/imagens/gift_50px.png'),
+                //),
+                Image(
+                  image: AssetImage('images/imagens/gift_50px.png'),
                 ),
                 Spacing(10.0),
-                Text('Faça seu cadastro!',
+                Text(
+                  'Faça seu cadastro!',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.bold,
-                    fontSize: 24.0,
+                    fontSize: 30.0,
                     letterSpacing: 1.0,
                   ),
                 ),
                 Spacing(30.0),
-                Field('Nome Completo', 'Digite seu nome completo'),
+                Field('Nome completo', 'Digite seu nome completo'),
                 Spacing(25.0),
                 Field('E-Mail', 'exemplo@email.com.br'),
                 Spacing(25.0),
@@ -94,26 +96,26 @@ class _CadastroState extends State<Cadastro> {
                 FlatButton(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
-                  onPressed: (){
+                  onPressed: () {
                     print('botão CRIAR CONTA acionado');
                     //SIGN UP button action here
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
+                      color: mainPurple,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    width: 250.0,
+                    //width: 250.0,
                     height: 60.0,
                     child: Center(
-                      child: Text('CRIAR CONTA',
+                      child: Text(
+                        'CRIAR CONTA',
                         style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                          letterSpacing: 2.0,
-                          color: Colors.white
-                        ),
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22.0,
+                            letterSpacing: 2.0,
+                            color: Colors.white),
                       ),
                     ),
                   ),

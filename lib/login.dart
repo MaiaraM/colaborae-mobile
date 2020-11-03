@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:colaborae/constants.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -6,14 +7,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
-  Widget Spacing(double h){
+  Widget Spacing(double h) {
     return SizedBox(
       height: h,
     );
   }
 
-  Widget Field(String label, String hint){
+  Widget Field(String label, String hint) {
     return Column(
       children: <Widget>[
         Container(
@@ -28,9 +28,7 @@ class _LoginState extends State<Login> {
               isDense: true,
               contentPadding: EdgeInsets.all(15.0),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(10.0)
-                ),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(
                   color: Colors.grey,
                 ),
@@ -57,11 +55,12 @@ class _LoginState extends State<Login> {
                 CircleAvatar(
                   radius: 55.0,
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('images/gift_50px.png'),
+                  backgroundImage: AssetImage('images/imagens/gift_50px.png'),
                   //TODO: alterar imagem de login
                 ),
                 Spacing(10.0),
-                Text('Logue e colabore aê!',
+                Text(
+                  'Logue e colabore aê!',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.bold,
@@ -77,7 +76,8 @@ class _LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Não possui uma conta?',
+                    Text(
+                      'Não possui uma conta?',
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
@@ -87,14 +87,15 @@ class _LoginState extends State<Login> {
                     FlatButton(
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pushNamed(context, '/cadastro');
                       },
-                      child: Text('Cadastre-se!',
+                      child: Text(
+                        'Cadastre-se!',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
-                          color: Colors.deepPurpleAccent,
+                          color: mainPurple,
                           fontSize: 16.0,
                           decoration: TextDecoration.underline,
                           letterSpacing: 1.0,
@@ -107,7 +108,7 @@ class _LoginState extends State<Login> {
                 FlatButton(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
-                  onPressed: (){
+                  onPressed: () {
                     print('botão LOGAR acionado');
                     Navigator.pushNamed(context, '/comecar');
                     //button action here
@@ -118,17 +119,17 @@ class _LoginState extends State<Login> {
                       color: Colors.deepPurpleAccent,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    width: 250.0,
+                    // width: 250.0,
                     height: 60.0,
                     child: Center(
-                      child: Text('ENTRAR',
+                      child: Text(
+                        'ENTRAR',
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0,
                             letterSpacing: 2.0,
-                            color: Colors.white
-                        ),
+                            color: Colors.white),
                       ),
                     ),
                   ),
