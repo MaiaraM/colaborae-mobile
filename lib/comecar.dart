@@ -60,18 +60,18 @@ class _ComecarState extends State<Comecar> {
                 ),
                 Card(
                   color: Colors.white,
-                  margin: EdgeInsets.fromLTRB(70.0, 10.0, 70.0, 3.0),
+                  margin: EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 3.0),
                   child: InkWell(
                     splashColor: mainPurple,
                     onTap: () {
-                      print('botão COMEÇAR acionado');
-                      Navigator.pushNamed(context, '/buscar_servico');
+                      Navigator.pushNamed(context, '/cadastro_servico');
+                      //TODO 03/11/2020 Henrique: criado novo botão de cadastro (para testagem da funcionalidade, retirar quando definir as rotas e as navegações de telas)
                       //COMEÇAR button action here
                     },
                     child: ListTile(
                       title: Center(
                         child: Text(
-                          'Começar',
+                          'Cadastrar Serviço',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20.0,
@@ -83,6 +83,33 @@ class _ComecarState extends State<Comecar> {
                     ),
                   ),
                 ),
+                Spacing(20.0),
+                Card(
+                  color: Colors.white,
+                  margin: EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 3.0),
+                  child: InkWell(
+                    splashColor: mainPurple,
+                    onTap: () {
+                      Navigator.pushNamed(context, '/buscar_servico');
+                      //TODO 03/11/2020 Henrique: nome do botão, de 'começar' para "buscar serviço"
+                      //COMEÇAR button action here
+                    },
+                    child: ListTile(
+                      title: Center(
+                        child: Text(
+                          'Buscar Serviço',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      trailing: Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+                Spacing(20.0),
               ],
             ),
           ),

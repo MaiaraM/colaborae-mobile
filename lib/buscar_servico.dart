@@ -51,7 +51,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                         children: [
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 0, 12, 0),
-                            child: Icon(Icons.search_rounded),
+                            child: Icon(Icons.search),
                           ),
                           // Text Field
                           Expanded(
@@ -84,7 +84,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     ),
                     child: IconButton(
                       icon: Icon(
-                        Icons.add_rounded,
+                        Icons.add,
                         size: 30,
                       ),
                       color: Colors.white,

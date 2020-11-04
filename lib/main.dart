@@ -3,6 +3,7 @@ import 'package:colaborae/cadastro.dart';
 import 'package:colaborae/login.dart';
 import 'package:colaborae/comecar.dart';
 import 'package:colaborae/buscar_servico.dart';
+import 'cadastrar_servico.dart';
 // import 'package:colaborae/constants.dart';
 
 void main() {
@@ -13,12 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/login',
+      initialRoute: '/cadastro_servico',
       routes: {
         '/login': (context) => Login(),
         '/comecar': (context) => Comecar(),
         '/cadastro': (context) => Cadastro(),
         '/buscar_servico': (context) => BuscarServico(),
+        '/cadastro_servico': (context) => CadastroServico(),
         //ADD more routes here,
         //ADD more routes here,
         //...
