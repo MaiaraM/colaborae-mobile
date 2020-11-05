@@ -3,6 +3,7 @@ import 'package:colaborae/cadastro.dart';
 import 'package:colaborae/login.dart';
 import 'package:colaborae/comecar.dart';
 import 'package:colaborae/buscar_servico.dart';
+import 'AvaliarServico.dart';
 import 'cadastrar_servico.dart';
 // import 'package:colaborae/constants.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/cadastro': (context) => Cadastro(),
         '/buscar_servico': (context) => BuscarServico(),
         '/cadastro_servico': (context) => CadastroServico(),
+        '/avaliar_servico': (context) => AvaliarServico(),
         //ADD more routes here,
         //ADD more routes here,
         //...
