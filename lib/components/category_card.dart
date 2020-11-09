@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
 
-class Categoria extends StatelessWidget {
-  Categoria(
+class CategoryCard extends StatelessWidget {
+  CategoryCard(
       {@required this.fundo,
       @required this.imagem,
       @required this.titulo,

@@ -1,6 +1,10 @@
+import 'package:colaborae/search_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+
+import 'package:flutter/foundation.dart';
+import 'dart:async';
 
 import 'package:colaborae/constants.dart';
 import 'package:colaborae/components/category_card.dart';
@@ -11,6 +15,8 @@ class BuscarServico extends StatefulWidget {
 }
 
 class _BuscarServicoState extends State<BuscarServico> {
+  final _debouncer = Debouncer(milliseconds: 1000);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,18 +27,33 @@ class _BuscarServicoState extends State<BuscarServico> {
           child: ListView(
             children: [
               // Título da aba
-              Container(
-                child: Center(
-                  child: Text(
-                    'Buscar serviço',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Poppins',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                      color: mainPurple,
                     ),
                   ),
-                ),
+                  SizedBox(
+                    width: 80,
+                  ),
+                  Center(
+                    child: Text(
+                      'Buscar serviço',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Poppins',
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 30,
@@ -51,14 +72,22 @@ class _BuscarServicoState extends State<BuscarServico> {
                         children: [
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 0, 12, 0),
-                            child: Icon(Icons.search),
+                            child: Icon(Icons.search_rounded),
                           ),
                           // Text Field
                           Expanded(
                             child: TextField(
-                              onChanged: (String algo) {
-                                // Mandar requisição pra buscar no banco de dados
-                                print(algo);
+                              onChanged: (String str) {
+                                if (str != '') {
+                                  _debouncer.run(() {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return SearchService(
+                                        userInput: str,
+                                      );
+                                    }));
+                                  });
+                                }
                               },
                               style: TextStyle(color: lightGray),
                               decoration: InputDecoration(
@@ -84,7 +113,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     ),
                     child: IconButton(
                       icon: Icon(
-                        Icons.add,
+                        Icons.add_rounded,
                         size: 30,
                       ),
                       color: Colors.white,
@@ -117,7 +146,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Categoria(
+                      CategoryCard(
                         fundo: comida,
                         imagem: 'hotdog',
                         titulo: 'Comida',
@@ -126,7 +155,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                           print('Comida pressionado');
                         },
                       ),
-                      Categoria(
+                      CategoryCard(
                         fundo: musica,
                         imagem: 'piano',
                         titulo: 'Música & dança',
@@ -144,7 +173,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Categoria(
+                      CategoryCard(
                         fundo: escola,
                         imagem: 'notebook_S',
                         titulo: 'Escola',
@@ -153,7 +182,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                           print('Escola pressionado');
                         },
                       ),
-                      Categoria(
+                      CategoryCard(
                         fundo: consertos,
                         imagem: 'box',
                         titulo: 'Consertos',
@@ -171,7 +200,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Categoria(
+                      CategoryCard(
                         fundo: artes,
                         imagem: 'camera1',
                         titulo: 'Artes',
@@ -180,7 +209,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                           print('Artes pressionado');
                         },
                       ),
-                      Categoria(
+                      CategoryCard(
                         fundo: linguas,
                         imagem: 'talkBubble',
                         titulo: 'Línguas',
@@ -198,7 +227,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Categoria(
+                      CategoryCard(
                         fundo: esporte,
                         imagem: 'weights',
                         titulo: 'Esporte',
@@ -207,7 +236,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                           print('Esporte pressionado');
                         },
                       ),
-                      Categoria(
+                      CategoryCard(
                         fundo: beleza,
                         imagem: 'oculusSwift_S',
                         titulo: 'Beleza',
@@ -225,7 +254,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Categoria(
+                      CategoryCard(
                         fundo: eletronicos,
                         imagem: 'laptop_S',
                         titulo: 'Eletrônicos',
@@ -234,7 +263,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                           print('Eletrônicos pressionado');
                         },
                       ),
-                      Categoria(
+                      CategoryCard(
                         fundo: animais,
                         imagem: 'powSign_S',
                         titulo: 'Animais',
@@ -252,7 +281,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Categoria(
+                      CategoryCard(
                         fundo: outros,
                         imagem: 'tea_S',
                         titulo: 'Outros',
@@ -274,5 +303,21 @@ class _BuscarServicoState extends State<BuscarServico> {
         ),
       ),
     );
+  }
+}
+
+class Debouncer {
+  final int milliseconds;
+  VoidCallback action;
+  Timer _timer;
+
+  Debouncer({this.milliseconds});
+
+  run(VoidCallback action) {
+    if (_timer != null) {
+      _timer.cancel();
+    }
+
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 }
