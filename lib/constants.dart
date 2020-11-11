@@ -28,4 +28,15 @@ const eletronicos = Color(0xFFBCBBBB);
 const animais = Color(0xFFFFEDD8);
 const outros = Color(0xFFB1FFCB);
 
-// Styles
+// Images
+const comidaImg = 'images/imagens/hotdog.png';
+const musicaImg = 'images/imagens/piano.png';
+const escolaImg = 'images/imagens/notebook_S.png';
+const consertosImg = 'images/imagens/box.png';
+const artesImg = 'images/imagens/camera1.png';
+const linguasImg = 'images/imagens/talkBubble.png';
+const esporteImg = 'images/imagens/weights.png';
+const belezaImg = 'images/imagens/oculusSwift_S.png';
+const eletronicosImg = 'images/imagens/laptop_S.png';
+const animaisImg = 'images/imagens/powSign_S.png';
+const outrosImg = 'images/imagens/tea_S.png';

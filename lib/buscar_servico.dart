@@ -1,13 +1,16 @@
-import 'package:colaborae/search_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-
 import 'package:flutter/foundation.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'dart:async';
 
 import 'package:colaborae/constants.dart';
 import 'package:colaborae/components/category_card.dart';
+import 'package:colaborae/search_services.dart';
+import 'package:colaborae/components/bottom_nav_bar.dart';
+import 'package:colaborae/components/tab_header.dart';
 
 class BuscarServico extends StatefulWidget {
   @override
@@ -16,6 +19,7 @@ class BuscarServico extends StatefulWidget {
 
 class _BuscarServicoState extends State<BuscarServico> {
   final _debouncer = Debouncer(milliseconds: 1000);
+  static const double _cardsSpacing = 30.0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,36 +31,13 @@ class _BuscarServicoState extends State<BuscarServico> {
           child: ListView(
             children: [
               // Título da aba
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      size: 30,
-                      color: mainPurple,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 80,
-                  ),
-                  Center(
-                    child: Text(
-                      'Buscar serviço',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Poppins',
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
+              TabHeader(
+                icon: Icons.arrow_back,
+                title: 'Buscar serviço',
+                haveButton: false,
               ),
               SizedBox(
-                height: 30,
+                height: _cardsSpacing,
               ),
               // Barra de pesquisa e botão de adicionar serviço novo
               Row(
@@ -72,7 +53,10 @@ class _BuscarServicoState extends State<BuscarServico> {
                         children: [
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 0, 12, 0),
-                            child: Icon(Icons.search_rounded),
+                            child: SvgPicture.asset(
+                              'images/svg/search.svg',
+                              color: gray,
+                            ),
                           ),
                           // Text Field
                           Expanded(
@@ -118,6 +102,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                       ),
                       color: Colors.white,
                       onPressed: () {
+                        Navigator.pushNamed(context, '/cadastro_servico');
                         print('Adicionar novo serviço pressionado');
                       },
                     ),
@@ -126,8 +111,9 @@ class _BuscarServicoState extends State<BuscarServico> {
               ),
               // Categorias
               SizedBox(
-                height: 30,
+                height: _cardsSpacing,
               ),
+              // Cards das categorias
               Text(
                 'Categorias',
                 style: TextStyle(
@@ -138,170 +124,204 @@ class _BuscarServicoState extends State<BuscarServico> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: _cardsSpacing,
               ),
+
+              // CATEGORY CARDS
               Column(
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CategoryCard(
-                        fundo: comida,
-                        imagem: 'hotdog',
-                        titulo: 'Comida',
-                        descricao: 'Lanches, doces, kit festa e mais',
-                        onPress: () {
-                          print('Comida pressionado');
-                        },
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: comida,
+                          imagem: 'hotdog',
+                          titulo: 'Comida',
+                          descricao: 'Lanches, doces, kit festa e mais',
+                          onPress: () {
+                            print('Comida pressionado');
+                          },
+                        ),
                       ),
-                      CategoryCard(
-                        fundo: musica,
-                        imagem: 'piano',
-                        titulo: 'Música & dança',
-                        descricao: 'Instrumentos musicais, dança e mais',
-                        onPress: () {
-                          print('Piano pressionado');
-                        },
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: musica,
+                          imagem: 'piano',
+                          titulo: 'Música & dança',
+                          descricao: 'Instrumentos musicais, dança e mais',
+                          onPress: () {
+                            print('Piano pressionado');
+                          },
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: _cardsSpacing,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CategoryCard(
-                        fundo: escola,
-                        imagem: 'notebook_S',
-                        titulo: 'Escola',
-                        descricao: 'Matemática, física, química, e mais',
-                        onPress: () {
-                          print('Escola pressionado');
-                        },
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: escola,
+                          imagem: 'notebook_S',
+                          titulo: 'Escola',
+                          descricao: 'Matemática, física, química, e mais',
+                          onPress: () {
+                            print('Escola pressionado');
+                          },
+                        ),
                       ),
-                      CategoryCard(
-                        fundo: consertos,
-                        imagem: 'box',
-                        titulo: 'Consertos',
-                        descricao: 'Encanamento, elétrica, móveis e mais',
-                        onPress: () {
-                          print('Consertos pressionado');
-                        },
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: consertos,
+                          imagem: 'box',
+                          titulo: 'Consertos',
+                          descricao: 'Encanamento, elétrica, móveis e mais',
+                          onPress: () {
+                            print('Consertos pressionado');
+                          },
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: _cardsSpacing,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CategoryCard(
-                        fundo: artes,
-                        imagem: 'camera1',
-                        titulo: 'Artes',
-                        descricao: 'Pinturas, fotos, esculturas e mais',
-                        onPress: () {
-                          print('Artes pressionado');
-                        },
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: artes,
+                          imagem: 'camera1',
+                          titulo: 'Artes',
+                          descricao: 'Pinturas, fotos, esculturas e mais',
+                          onPress: () {
+                            print('Artes pressionado');
+                          },
+                        ),
                       ),
-                      CategoryCard(
-                        fundo: linguas,
-                        imagem: 'talkBubble',
-                        titulo: 'Línguas',
-                        descricao: 'Inglês, espanhol, francês e mais',
-                        onPress: () {
-                          print('Línguas pressionado');
-                        },
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: linguas,
+                          imagem: 'talkBubble',
+                          titulo: 'Línguas',
+                          descricao: 'Inglês, espanhol, francês e mais',
+                          onPress: () {
+                            print('Línguas pressionado');
+                          },
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: _cardsSpacing,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CategoryCard(
-                        fundo: esporte,
-                        imagem: 'weights',
-                        titulo: 'Esporte',
-                        descricao: 'Vôlei, futebol e mais',
-                        onPress: () {
-                          print('Esporte pressionado');
-                        },
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: esporte,
+                          imagem: 'weights',
+                          titulo: 'Esporte',
+                          descricao: 'Vôlei, futebol e mais',
+                          onPress: () {
+                            print('Esporte pressionado');
+                          },
+                        ),
                       ),
-                      CategoryCard(
-                        fundo: beleza,
-                        imagem: 'oculusSwift_S',
-                        titulo: 'Beleza',
-                        descricao: 'Costura, manicure, cabelo e mais',
-                        onPress: () {
-                          print('Beleza pressionado');
-                        },
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: beleza,
+                          imagem: 'oculusSwift_S',
+                          titulo: 'Beleza',
+                          descricao: 'Costura, manicure, cabelo e mais',
+                          onPress: () {
+                            print('Beleza pressionado');
+                          },
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: _cardsSpacing,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CategoryCard(
-                        fundo: eletronicos,
-                        imagem: 'laptop_S',
-                        titulo: 'Eletrônicos',
-                        descricao: 'Formatar PC, conserto, montar e mais',
-                        onPress: () {
-                          print('Eletrônicos pressionado');
-                        },
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: eletronicos,
+                          imagem: 'laptop_S',
+                          titulo: 'Eletrônicos',
+                          descricao: 'Formatar PC, conserto, montar e mais',
+                          onPress: () {
+                            print('Eletrônicos pressionado');
+                          },
+                        ),
                       ),
-                      CategoryCard(
-                        fundo: animais,
-                        imagem: 'powSign_S',
-                        titulo: 'Animais',
-                        descricao: 'Banho, tosa, cuidados e mais',
-                        onPress: () {
-                          print('Animais pressionado');
-                        },
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: animais,
+                          imagem: 'powSign_S',
+                          titulo: 'Animais',
+                          descricao: 'Banho, tosa, cuidados e mais',
+                          onPress: () {
+                            print('Animais pressionado');
+                          },
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: _cardsSpacing,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CategoryCard(
-                        fundo: outros,
-                        imagem: 'tea_S',
-                        titulo: 'Outros',
-                        descricao:
-                            'O que não se encaixa nas outras categorias!',
-                        onPress: () {
-                          print('Outros pressionado');
-                        },
+                      Expanded(
+                        child: CategoryCard(
+                          fundo: outros,
+                          imagem: 'tea_S',
+                          titulo: 'Outros',
+                          descricao:
+                              'O que não se encaixa nas outras categorias!',
+                          onPress: () {
+                            print('Outros pressionado');
+                          },
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: _cardsSpacing,
                   ),
                 ],
-              ),
+              )
             ],
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

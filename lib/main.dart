@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:colaborae/cadastro.dart';
 import 'package:colaborae/login.dart';
 import 'package:colaborae/comecar.dart';
 import 'package:colaborae/buscar_servico.dart';
-import 'cadastrar_servico.dart';
+import 'package:colaborae/cadastrar_servico.dart';
 import 'package:colaborae/search_services.dart';
-/*
-// import 'package:colaborae/constants.dart';
-import 'package:http/http.dart' as http;*/
 
 void main() {
+  // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
   runApp(MyApp());
 }
 
@@ -26,8 +26,6 @@ class MyApp extends StatelessWidget {
         '/cadastro_servico': (context) => CadastroServico(),
         '/search_services': (context) => SearchService(),
         //ADD more routes here,
-        //ADD more routes here,
-        //...
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

@@ -1,13 +1,18 @@
-import 'package:colaborae/main.dart';
 import 'package:colaborae/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TabHeader extends StatelessWidget {
-  TabHeader({this.icon, @required this.title, this.actionButton});
+  TabHeader(
+      {this.icon,
+      @required this.title,
+      @required this.haveButton,
+      this.actionButton});
 
   final IconData icon;
   final String title;
-  final IconData actionButton;
+  final bool haveButton;
+  final String actionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -24,33 +29,39 @@ class TabHeader extends StatelessWidget {
             color: mainPurple,
           ),
         ),
-        Text(
-          '$title',
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'Poppins',
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Ink(
-          decoration: ShapeDecoration(
-            color: mainPurple,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            '$title',
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Poppins',
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          child: IconButton(
-            icon: Icon(
-              actionButton,
-              size: 30,
-            ),
-            color: Colors.white,
-            onPressed: () {
-              print('Botão filtrar serviços adicionado');
-            },
-          ),
         ),
+        haveButton
+            ? Ink(
+                decoration: ShapeDecoration(
+                  color: mainPurple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    'images/svg/$actionButton.svg',
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    print('Botão filtrar serviços adicionado');
+                  },
+                ),
+              )
+            : SizedBox(
+                width: 40,
+              ),
       ],
     );
   }

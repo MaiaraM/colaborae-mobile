@@ -15,7 +15,7 @@ class ServiceItem extends StatelessWidget {
   final String image;
   final String title;
   final String description;
-  final String price;
+  final double price;
   final String rating;
   final Function onPress;
 

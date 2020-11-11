@@ -21,15 +21,16 @@ class CategoryCard extends StatelessWidget {
       onTap: onPress,
       child: Container(
         // Envelope
-        width: 180,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 180,
-              width: 180,
+              height: 200,
+              width: double.infinity,
               decoration: BoxDecoration(
-                  color: fundo, borderRadius: BorderRadius.circular(10)),
+                color: fundo,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(14.0),
                 child: Image.asset('images/imagens/$imagem.png'),
@@ -38,19 +39,24 @@ class CategoryCard extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text(
-              '$titulo',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              '$descricao',
-              style: TextStyle(
-                fontSize: 18,
-                color: lightGray,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '$titulo',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '$descricao',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: lightGray,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

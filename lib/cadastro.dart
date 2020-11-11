@@ -15,7 +15,7 @@ class _CadastroState extends State<Cadastro> {
 
   Widget Field(String label, String hint) {
     return Column(
-      children: <Widget>[
+      children: [
         // Container(
         //   margin: EdgeInsets.all(2.0),
         //   width: 250.0,

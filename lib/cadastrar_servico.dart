@@ -1,6 +1,7 @@
 import 'package:colaborae/requests/http_request.dart';
 import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
+import 'package:colaborae/components/tab_header.dart';
 
 class CadastroServico extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _CadastroServicoState extends State<CadastroServico> {
     );
   }
 
-  httpRequest httpReq = httpRequest();
+  HttpRequest httpReq = HttpRequest();
   final tituloController = TextEditingController();
   final precoController = TextEditingController();
   final descController = TextEditingController();
@@ -64,39 +65,24 @@ class _CadastroServicoState extends State<CadastroServico> {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: [
                 Spacing(20.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back,
-                        color: Colors.deepPurpleAccent,
-                        size: 35.0,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Text(
-                      'Novo Serviço!',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 26.0,
-                      ),
-                    ),
-                  ],
+                TabHeader(
+                  icon: Icons.arrow_back,
+                  title: 'Novo serviço',
+                  haveButton: false,
                 ),
                 Spacing(30.0),
                 Field('Título do Serviço', '', 1, tituloController),
                 Spacing(25.0),
-                Field('Valor por hora', 'Exemplo: 29.99 (sem R\$)', 1, precoController),
+                Field('Valor por hora', 'Exemplo: 29.99 (sem R\$)', 1,
+                    precoController),
                 Spacing(25.0),
-                Field('Descrição', 'Adicione uma descrição e horários do seu serviço para que as pessoas entendam o que você está oferecendo!', 6, descController),
+                Field(
+                    'Descrição',
+                    'Adicione uma descrição e horários do seu serviço para que as pessoas entendam o que você está oferecendo!',
+                    6,
+                    descController),
                 Spacing(50.0),
                 FlatButton(
                   highlightColor: Colors.transparent,
@@ -113,7 +99,8 @@ class _CadastroServicoState extends State<CadastroServico> {
                     print(precoString);
                     print('Descrição: ' + desc);
 
-                    var response = await httpReq.createService(titulo, desc, preco);
+                    var response =
+                        await httpReq.createService(titulo, desc, preco);
                     print(response);
 
                     setState(() {
@@ -133,11 +120,11 @@ class _CadastroServicoState extends State<CadastroServico> {
                       child: Text(
                         'CONCLUIR',
                         style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22.0,
-                            letterSpacing: 2.0,
-                            color: Colors.white,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22.0,
+                          letterSpacing: 2.0,
+                          color: Colors.white,
                         ),
                       ),
                     ),

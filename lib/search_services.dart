@@ -1,9 +1,9 @@
 // TELA DE QUANDO CLICA NA CATEGORIA EM BUSCAR SERVIÇO
+import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:colaborae/main.dart';
 import 'package:colaborae/constants.dart';
 import 'package:colaborae/components/tab_header.dart';
-import 'package:colaborae/components/item_servico.dart';
+import 'package:colaborae/components/service_item.dart';
 
 // Requests
 import 'package:http/http.dart' as http;
@@ -23,6 +23,7 @@ const services_url = '$base_url/services';
 
 class _SearchServiceState extends State<SearchService> {
   List<Widget> itemsList = [];
+  int itemsCount = 0;
 
   @override
   void initState() {
@@ -47,9 +48,10 @@ class _SearchServiceState extends State<SearchService> {
   void generateServiceItem(dynamic json) {
     for (int i = 0; i < json.length; i++) {
       var title, description, price;
+
       title = json[i]['title'];
       description = json[i]['description'];
-      price = json[i]['price'];
+      price = json[i]['value'];
 
       itemsList.add(ServiceItem(
           backgroundColor: musica,
@@ -62,9 +64,11 @@ class _SearchServiceState extends State<SearchService> {
             print('Serviço selecionado.');
           }));
 
-      itemsList.add(SizedBox(height: 20));
+      itemsList.add(SizedBox(height: 15));
 
       setState(() {});
+
+      itemsCount++;
     }
   }
 
@@ -82,13 +86,16 @@ class _SearchServiceState extends State<SearchService> {
               TabHeader(
                 icon: Icons.arrow_back,
                 title: 'Encontrados',
-                actionButton: Icons.filter_alt,
+                haveButton: true,
+                actionButton: 'sliders',
               ),
               SizedBox(
                 height: 25,
               ),
               Text(
-                'Foram encontrados x resultados.',
+                itemsCount != 0
+                    ? 'Foram encontrados ${itemsCount} resultados.'
+                    : 'Nenhum serviço encontrado.',
                 style: TextStyle(
                   color: lightGray,
                   fontSize: 20,
@@ -104,6 +111,7 @@ class _SearchServiceState extends State<SearchService> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
