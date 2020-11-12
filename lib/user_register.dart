@@ -2,10 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
 import 'package:colaborae/components/field.dart';
 import 'package:colaborae/components/big_button.dart';
+import 'package:colaborae/models/user_model.dart';
+import 'package:http/http.dart' as http;
 
 class UserRegister extends StatefulWidget {
   @override
   _UserRegisterState createState() => _UserRegisterState();
+}
+
+Future<UserModel> createUser(
+    String nome,
+    String sobrenome,
+    String email,
+    String cpf,
+    String rua,
+    String bairro,
+    String cidade,
+    String estado,
+    String descricao) async {
+  final String baseUrl = 'https://api-colaborae.herokuapp.com/users/';
+
+  final response = await http.post(baseUrl, body: {
+    "firstName": nome,
+    "lastName": sobrenome,
+    "email": email,
+    "document": cpf,
+    "address": {"address": rua, "city": cidade, "state": estado},
+    "description": descricao
+  });
+
+  if (response.statusCode == 201) {
+    final String responseString = response.body;
+    print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
+    return userModelFromJson(responseString);
+  } else {
+    print('CRIAÇÃO DE USUÁRIO FALHOU.');
+    return null;
+  }
 }
 
 class _UserRegisterState extends State<UserRegister> {
@@ -18,20 +51,24 @@ class _UserRegisterState extends State<UserRegister> {
   final nomeController = TextEditingController();
   final sobrenomeController = TextEditingController();
   final emailController = TextEditingController();
+  final senhaController = TextEditingController();
   final cpfController = TextEditingController();
   final ruaController = TextEditingController();
   final bairroController = TextEditingController();
   final cidadeController = TextEditingController();
   final estadoController = TextEditingController();
+  final descricaoController = TextEditingController();
 
   String nome = '';
   String sobrenome = '';
   String email = '';
+  String senha = '';
   String cpf = '';
   String rua = '';
   String bairro = '';
   String cidade = '';
   String estado = '';
+  String descricao = '';
 
   @override
   Widget build(BuildContext context) {
@@ -78,17 +115,19 @@ class _UserRegisterState extends State<UserRegister> {
                     Icons.person,
                     color: gray,
                   ),
+                  lines: 1,
                   controller: nomeController,
                   keyboardInputType: TextInputType.name,
                 ),
                 Spacing(20.0),
                 Field(
                   label: 'Sobrenome',
-                  hint: 'Digite sua senha',
+                  hint: 'Digite seu sobrenome',
                   icon: Icon(
-                    Icons.lock,
+                    Icons.person,
                     color: gray,
                   ),
+                  lines: 1,
                   controller: sobrenomeController,
                   keyboardInputType: TextInputType.name,
                 ),
@@ -100,8 +139,20 @@ class _UserRegisterState extends State<UserRegister> {
                     Icons.alternate_email,
                     color: gray,
                   ),
+                  lines: 1,
                   controller: emailController,
                   keyboardInputType: TextInputType.emailAddress,
+                ),
+                Spacing(20.0),
+                Field(
+                  label: 'Senha',
+                  icon: Icon(
+                    Icons.lock,
+                    color: gray,
+                  ),
+                  lines: 1,
+                  hint: 'Digite uma nova senha',
+                  controller: senhaController,
                 ),
                 Spacing(20.0),
                 Field(
@@ -111,6 +162,7 @@ class _UserRegisterState extends State<UserRegister> {
                     Icons.accessibility,
                     color: gray,
                   ),
+                  lines: 1,
                   controller: cpfController,
                   keyboardInputType: TextInputType.number,
                 ),
@@ -130,8 +182,9 @@ class _UserRegisterState extends State<UserRegister> {
                       child: Field(
                         label: 'Rua',
                         hint: 'Digite a rua da sua casa',
+                        lines: 1,
                         controller: ruaController,
-                        keyboardInputType: TextInputType.emailAddress,
+                        keyboardInputType: TextInputType.name,
                       ),
                     ),
                     SizedBox(width: 10.0),
@@ -139,8 +192,9 @@ class _UserRegisterState extends State<UserRegister> {
                       child: Field(
                         label: 'Bairro',
                         hint: 'Digite o seu bairro',
+                        lines: 1,
                         controller: bairroController,
-                        keyboardInputType: TextInputType.emailAddress,
+                        keyboardInputType: TextInputType.name,
                       ),
                     ),
                   ],
@@ -153,7 +207,8 @@ class _UserRegisterState extends State<UserRegister> {
                         label: 'Cidade',
                         hint: 'Ex: Rio de Janeiro',
                         controller: cidadeController,
-                        keyboardInputType: TextInputType.emailAddress,
+                        lines: 1,
+                        keyboardInputType: TextInputType.name,
                       ),
                     ),
                     SizedBox(width: 10.0),
@@ -162,15 +217,34 @@ class _UserRegisterState extends State<UserRegister> {
                         label: 'Estado',
                         hint: 'Ex: SP',
                         controller: estadoController,
-                        keyboardInputType: TextInputType.emailAddress,
+                        lines: 1,
+                        keyboardInputType: TextInputType.name,
                       ),
                     ),
                   ],
                 ),
-                Spacing(40.0),
+                Spacing(30.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text('Adicione uma descrição ao seu perfil',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500))
+                  ],
+                ),
+                Spacing(20.0),
+                Field(
+                  label: 'Descrição',
+                  hint:
+                      'Escreva uma descrição rápida sobre você que aparecerá aos outros usuários.',
+                  lines: 4,
+                  controller: descricaoController,
+                  keyboardInputType: TextInputType.multiline,
+                ),
+                Spacing(20.0),
                 BigButton(
                   text: 'CADASTRAR',
-                  onPressed: () {
+                  onPressed: () async {
                     nome = nomeController.text;
                     sobrenome = sobrenomeController.text;
                     email = emailController.text;
@@ -179,6 +253,16 @@ class _UserRegisterState extends State<UserRegister> {
                     bairro = bairroController.text;
                     cidade = cidadeController.text;
                     estado = estadoController.text;
+                    descricao = descricaoController.text;
+
+                    // final Address endereco =
+                    // Address(address: rua, city: cidade, state: estado);
+                    try {
+                      final UserModel user = await createUser(nome, sobrenome,
+                          email, cpf, rua, bairro, cidade, estado, descricao);
+                    } catch (e) {
+                      print(e);
+                    }
                     setState(() {
                       nome = '';
                       sobrenome = '';
@@ -188,10 +272,38 @@ class _UserRegisterState extends State<UserRegister> {
                       bairro = '';
                       cidade = '';
                       estado = '';
+                      descricao = '';
                     });
-                    print('BOTÃO CADASTRAR PRESSIONADO');
                     Navigator.pushNamed(context, '/buscar_servico');
                   },
+                ),
+                Spacing(20.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Já possui uma conta?',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    FlatButton(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: Text(
+                        'Entre agora.',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: mainPurple,
+                          fontSize: 18.0,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Spacing(20.0),
               ],

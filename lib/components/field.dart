@@ -6,6 +6,7 @@ class Field extends StatelessWidget {
     @required this.label,
     this.hint,
     this.icon,
+    this.lines,
     this.controller,
     this.keyboardInputType,
   });
@@ -13,12 +14,14 @@ class Field extends StatelessWidget {
   final String label;
   final String hint;
   final Widget icon;
+  final int lines;
   final TextEditingController controller;
   final TextInputType keyboardInputType;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLines: lines,
       controller: controller,
       obscureText: label == 'Senha' ? true : false,
       enableSuggestions: label == 'Senha' ? false : true,

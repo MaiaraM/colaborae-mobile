@@ -97,7 +97,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                     ),
                     child: IconButton(
                       icon: Icon(
-                        Icons.add_rounded,
+                        Icons.add,
                         size: 30,
                       ),
                       color: Colors.white,
