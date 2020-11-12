@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:colaborae/cadastro.dart';
+import 'package:colaborae/user_register.dart';
 import 'package:colaborae/login.dart';
-import 'package:colaborae/comecar.dart';
+import 'package:colaborae/start.dart';
 import 'package:colaborae/buscar_servico.dart';
 import 'package:colaborae/cadastrar_servico.dart';
 import 'package:colaborae/search_services.dart';
@@ -17,11 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/comecar',
+      initialRoute: '/start',
       routes: {
         '/login': (context) => Login(),
-        '/comecar': (context) => Comecar(),
-        '/cadastro': (context) => Cadastro(),
+        '/start': (context) => StartingPage(),
+        '/user_register': (context) => UserRegister(),
         '/buscar_servico': (context) => BuscarServico(),
         '/cadastro_servico': (context) => CadastroServico(),
         '/search_services': (context) => SearchService(),

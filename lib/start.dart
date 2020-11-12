@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
 
-class Comecar extends StatefulWidget {
+class StartingPage extends StatefulWidget {
   @override
-  _ComecarState createState() => _ComecarState();
+  _StartingPageState createState() => _StartingPageState();
 }
 
-class _ComecarState extends State<Comecar> {
+class _StartingPageState extends State<StartingPage> {
   Widget Spacing(double h) {
     return SizedBox(
       height: h,
