@@ -15,6 +15,12 @@ class _LoginState extends State<Login> {
     );
   }
 
+  final emailController = TextEditingController();
+  final senhaController = TextEditingController();
+
+  String email = '';
+  String senha = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +96,16 @@ class _LoginState extends State<Login> {
               Spacing(15.0),
               BigButton(
                 text: 'ENTRAR',
-                route: 'buscar_servico',
+                onPressed: () {
+                  email = emailController.text;
+                  senha = senhaController.text;
+                  setState(() {
+                    email = '';
+                    senha = '';
+                  });
+                  print('BOTÃO ENTRAR PRESSIONADO');
+                  Navigator.pushNamed(context, '/buscar_servico');
+                },
               ),
             ],
           ),

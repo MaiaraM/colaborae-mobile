@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
 
 class BigButton extends StatelessWidget {
-  BigButton({@required this.text, @required this.route});
+  BigButton({@required this.text, this.onPressed});
 
   final String text;
-  final String route;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print('Botão grande roxo de ação pressionado');
-        Navigator.pushNamed(context, '/$route');
-      },
+      onTap: onPressed,
       child: Container(
         decoration: BoxDecoration(
           color: mainPurple,
