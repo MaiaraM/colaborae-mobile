@@ -55,7 +55,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                             margin: EdgeInsets.fromLTRB(15, 0, 12, 0),
                             child: SvgPicture.asset(
                               'images/svg/search.svg',
-                              color: gray,
+                              color: Colors.black,
                             ),
                           ),
                           // Text Field
@@ -102,7 +102,7 @@ class _BuscarServicoState extends State<BuscarServico> {
                       ),
                       color: Colors.white,
                       onPressed: () {
-                        Navigator.pushNamed(context, '/cadastro_servico');
+                        Navigator.pushNamed(context, '/service_register');
                         print('Adicionar novo serviço pressionado');
                       },
                     ),

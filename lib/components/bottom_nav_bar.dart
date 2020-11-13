@@ -11,14 +11,27 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _activeItemIndex = 1;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        BottomNavBarItem(icon: 'compass', index: 0, route: 'start'),
-        BottomNavBarItem(icon: 'search', index: 1, route: 'buscar_servico'),
-        BottomNavBarItem(
-            icon: 'receipt_long-24px', index: 2, route: 'user_register'),
-        BottomNavBarItem(icon: 'user', index: 3, route: 'login'),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: gray.withOpacity(0.3),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          )
+        ],
+      ),
+      child: Row(
+        children: [
+          BottomNavBarItem(icon: 'compass', index: 0, route: 'start'),
+          BottomNavBarItem(icon: 'search', index: 1, route: 'buscar_servico'),
+          BottomNavBarItem(
+              icon: 'receipt_long-24px', index: 2, route: 'user_profile'),
+          BottomNavBarItem(icon: 'user', index: 3, route: 'worker_profile'),
+        ],
+      ),
     );
   }
 

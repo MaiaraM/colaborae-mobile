@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 25, 20, 0),
+          padding: padding,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

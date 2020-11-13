@@ -13,6 +13,7 @@ const gray = Color(0xFF6D6D78);
 const darkGray = Color(0xFF4A4A4A);
 const green = Color(0xFF00B762);
 const red = Color(0xFFEA5167);
+const lightPink = Color(0xFFFFE5E6);
 
 // Category background colors
 
@@ -40,3 +41,6 @@ const belezaImg = 'images/imagens/oculusSwift_S.png';
 const eletronicosImg = 'images/imagens/laptop_S.png';
 const animaisImg = 'images/imagens/powSign_S.png';
 const outrosImg = 'images/imagens/tea_S.png';
+
+// Padding
+const padding = EdgeInsets.fromLTRB(25, 25, 25, 0);

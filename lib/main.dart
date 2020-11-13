@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:colaborae/user_register.dart';
 import 'package:colaborae/login.dart';
 import 'package:colaborae/start.dart';
 import 'package:colaborae/buscar_servico.dart';
-import 'package:colaborae/cadastrar_servico.dart';
+import 'package:colaborae/service_register.dart';
 import 'package:colaborae/search_services.dart';
+import 'package:colaborae/user_profile.dart';
+import 'package:colaborae/worker_profile.dart';
 
 void main() {
   // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
@@ -23,8 +24,10 @@ class MyApp extends StatelessWidget {
         '/start': (context) => StartingPage(),
         '/user_register': (context) => UserRegister(),
         '/buscar_servico': (context) => BuscarServico(),
-        '/cadastro_servico': (context) => CadastroServico(),
+        '/service_register': (context) => CadastroServico(),
         '/search_services': (context) => SearchService(),
+        '/user_profile': (context) => UserProfile(),
+        '/worker_profile': (context) => WorkerProfile(),
         //ADD more routes here,
       },
       debugShowCheckedModeBanner: false,

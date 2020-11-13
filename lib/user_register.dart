@@ -76,7 +76,7 @@ class _UserRegisterState extends State<UserRegister> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 25, 20, 0),
+          padding: padding,
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

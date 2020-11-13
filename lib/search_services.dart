@@ -78,7 +78,7 @@ class _SearchServiceState extends State<SearchService> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 25, 20, 0),
+          padding: padding,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [

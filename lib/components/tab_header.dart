@@ -37,7 +37,7 @@ class TabHeader extends StatelessWidget {
               color: Colors.black,
               fontFamily: 'Poppins',
               fontSize: 30,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ),

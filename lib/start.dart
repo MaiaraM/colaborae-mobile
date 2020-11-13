@@ -19,7 +19,7 @@ class _StartingPageState extends State<StartingPage> {
       backgroundColor: mainPurple,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(25.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -49,7 +49,7 @@ class _StartingPageState extends State<StartingPage> {
                   child: InkWell(
                     splashColor: mainPurple,
                     onTap: () {
-                      Navigator.pushNamed(context, '/cadastro_servico');
+                      Navigator.pushNamed(context, '/service_register');
                       //TODO 03/11/2020 Henrique: criado novo botão de cadastro (para testagem da funcionalidade, retirar quando definir as rotas e as navegações de telas)
                       //COMEÇAR button action here
                     },

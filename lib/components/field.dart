@@ -32,7 +32,7 @@ class Field extends StatelessWidget {
           color: lightGray,
         ),
         labelText: label,
-        labelStyle: TextStyle(color: gray),
+        labelStyle: TextStyle(color: Colors.black),
         isDense: true,
         contentPadding: EdgeInsets.all(20.0),
         enabledBorder: OutlineInputBorder(

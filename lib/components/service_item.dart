@@ -24,6 +24,7 @@ class ServiceItem extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: Container(
+        height: 107.0,
         decoration: BoxDecoration(
           border: Border.all(
             color: lighterGray,
@@ -39,6 +40,7 @@ class ServiceItem extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
+                  height: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
                     color: backgroundColor,
@@ -88,13 +90,14 @@ class ServiceItem extends StatelessWidget {
                     'R\$ $price',
                     style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   Text(
                     '$rating',
                     style: TextStyle(
                       color: yellow,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

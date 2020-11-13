@@ -24,6 +24,7 @@ class BigButton extends StatelessWidget {
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 22.0,
+              letterSpacing: 1.0,
             ),
           ),
         ),
