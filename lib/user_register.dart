@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
 import 'package:colaborae/components/field.dart';
@@ -22,22 +24,28 @@ Future<UserModel> createUser(
     String descricao) async {
   final String baseUrl = 'https://api-colaborae.herokuapp.com/users/';
 
-  final response = await http.post(baseUrl, body: {
-    "firstName": nome,
-    "lastName": sobrenome,
-    "email": email,
-    "document": cpf,
-    "address": {"address": rua, "city": cidade, "state": estado},
-    "description": descricao
-  });
+  try {
+    Map<String, String> headers = {"Content-type": "application/json"};
+    var body = jsonEncode({
+      "firstName": nome,
+      "lastName": sobrenome,
+      "email": email,
+      "document": cpf,
+      "address": {"address": rua, "city": cidade, "state": estado},
+      "description": descricao
+    });
 
-  if (response.statusCode == 201) {
-    final String responseString = response.body;
-    print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
-    return userModelFromJson(responseString);
-  } else {
-    print('CRIAÇÃO DE USUÁRIO FALHOU.');
-    return null;
+    var response = await http.post(baseUrl, headers: headers, body: body);
+    if (response.statusCode == 201) {
+      String responseString = response.body;
+      print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
+      return userModelFromJson(responseString);
+    } else {
+      print('CRIAÇÃO DE USUÁRIO FALHOU.');
+      return null;
+    }
+  } catch (e) {
+    print(e);
   }
 }
 
@@ -258,8 +266,8 @@ class _UserRegisterState extends State<UserRegister> {
                     // final Address endereco =
                     // Address(address: rua, city: cidade, state: estado);
                     try {
-                      final UserModel user = await createUser(nome, sobrenome,
-                          email, cpf, rua, bairro, cidade, estado, descricao);
+                      UserModel user = await createUser(nome, sobrenome, email,
+                          cpf, rua, bairro, cidade, estado, descricao);
                     } catch (e) {
                       print(e);
                     }
@@ -274,7 +282,7 @@ class _UserRegisterState extends State<UserRegister> {
                       estado = '';
                       descricao = '';
                     });
-                    Navigator.pushNamed(context, '/buscar_servico');
+                    //Navigator.pushNamed(context, '/buscar_servico');
                   },
                 ),
                 Spacing(20.0),

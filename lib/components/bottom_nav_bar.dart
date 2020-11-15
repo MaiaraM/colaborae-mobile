@@ -28,7 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           BottomNavBarItem(icon: 'compass', index: 0, route: 'start'),
           BottomNavBarItem(icon: 'search', index: 1, route: 'buscar_servico'),
           BottomNavBarItem(
-              icon: 'receipt_long-24px', index: 2, route: 'user_profile'),
+              icon: 'receipt_long-24px', index: 2, route: 'user_register'),
           BottomNavBarItem(icon: 'user', index: 3, route: 'worker_profile'),
         ],
       ),
