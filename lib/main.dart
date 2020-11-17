@@ -1,3 +1,4 @@
+import 'package:colaborae/search_users.dart';
 import 'package:flutter/material.dart';
 
 import 'package:colaborae/user_register.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/search_services': (context) => SearchService(),
         '/user_profile': (context) => UserProfile(),
         '/worker_profile': (context) => WorkerProfile(),
+        '/search_user': (context) => SearchUsers(),
         //ADD more routes here,
       },
       debugShowCheckedModeBanner: false,

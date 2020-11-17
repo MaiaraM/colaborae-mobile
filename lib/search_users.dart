@@ -1,4 +1,4 @@
-// TELA DE QUANDO CLICA NA CATEGORIA EM BUSCAR SERVIÇO
+// TELA DE QUANDO CLICA NA CATEGORIA EM BUSCAR USUARIO
 import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
@@ -9,19 +9,22 @@ import 'package:colaborae/components/service_item.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class SearchService extends StatefulWidget {
-  SearchService({this.userInput});
 
-  final userInput;
+class SearchUsers extends StatefulWidget {
+
+  // SearchUsers({this.userInput});
+  //
+  // final userInput;
 
   @override
-  _SearchServiceState createState() => _SearchServiceState();
+  _SearchUsersState createState() => _SearchUsersState();
 }
 
-const base_url = 'http://api-colaborae.herokuapp.com/';
-const services_url = '$base_url/services';
+const base_url = 'http://api-colaborae.herokuapp.com';
+const services_url = '/users';
 
-class _SearchServiceState extends State<SearchService> {
+class _SearchUsersState extends State<SearchUsers> {
+
   List<Widget> itemsList = [];
   int itemsCount = 0;
 
@@ -29,16 +32,17 @@ class _SearchServiceState extends State<SearchService> {
   void initState() {
     super.initState();
     setState(() {
-      searchService(widget.userInput);
+      searchUser();
     });
   }
 
-  void searchService(String userInput) async {
-    http.Response res = await http.get('$services_url/search?title=$userInput');
+  void searchUser() async {
+    http.Response res = await http.get('$base_url$services_url?page=0&size=99');
 
     if (res.statusCode == 200) {
       String data = res.body;
       var jsonParse = jsonDecode(data);
+
       generateServiceItem(jsonParse);
     } else {
       print(res.statusCode);
@@ -46,29 +50,34 @@ class _SearchServiceState extends State<SearchService> {
   }
 
   void generateServiceItem(dynamic json) {
-    for (int i = 0; i < json.length; i++) {
-      var title, description, price;
 
-      title = json[i]['title'];
-      description = json[i]['description'];
-      price = json[i]['value'];
 
-      itemsList.add(ServiceItem(
-          backgroundColor: musica,
-          image: 'imagens/piano.png',
-          title: title,
-          description: description,
-          price: price,
-          rating: 'N/E',
-          onPress: () {
-            print('Serviço selecionado.');
-          }));
+    for (int i = 0; i < 99; i++) {
 
-      itemsList.add(SizedBox(height: 15));
+      if(json['content'][i]['active'] == true){
 
-      setState(() {});
+        var name, surname, description;
 
-      itemsCount++;
+        name = json['content'][i]['firstName'];
+        surname = json['content'][i]['lastName'];
+        description = json['content'][i]['description'];
+
+        itemsList.add(ServiceItem(
+            backgroundColor: musica,
+            image: 'profiles/pfp1.png',
+            title: '$name $surname',
+            description: description,
+            onPress: () {
+              print('Usuário selecionado.');
+            }));
+
+        itemsList.add(SizedBox(height: 15));
+
+        setState(() {});
+
+        itemsCount++;
+
+      }
     }
   }
 
@@ -78,7 +87,7 @@ class _SearchServiceState extends State<SearchService> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: padding,
+          padding: const EdgeInsets.fromLTRB(20, 25, 20, 0),
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
@@ -95,7 +104,7 @@ class _SearchServiceState extends State<SearchService> {
               Text(
                 itemsCount != 0
                     ? 'Foram encontrados ${itemsCount} resultados.'
-                    : 'Nenhum serviço encontrado.',
+                    : 'Nenhum usuário encontrado.',
                 style: TextStyle(
                   color: lightGray,
                   fontSize: 20,

@@ -24,7 +24,9 @@ class ServiceItem extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: Container(
-        height: 107.0,
+        // height original dos serviços = 107
+        // height dos usuários = 150+
+        height: 200.0,
         decoration: BoxDecoration(
           border: Border.all(
             color: lighterGray,
@@ -47,7 +49,7 @@ class ServiceItem extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Image.asset('images/imagens/$image.png'),
+                    child: Image.asset('images/$image'),
                   ),
                 ),
               ),
