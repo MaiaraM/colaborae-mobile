@@ -56,7 +56,7 @@ class _StartingPageState extends State<StartingPage> {
                     child: ListTile(
                       title: Center(
                         child: Text(
-                          'Cadastrar Serviço',
+                          'Criar Serviço',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20.0,
@@ -82,6 +82,54 @@ class _StartingPageState extends State<StartingPage> {
                       title: Center(
                         child: Text(
                           'Buscar Serviço',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      trailing: Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+                Spacing(20.0),
+                Card(
+                  color: Colors.white,
+                  child: InkWell(
+                    splashColor: mainPurple,
+                    onTap: () {
+                      Navigator.pushNamed(context, '/user_register');
+                      //COMEÇAR button action here
+                    },
+                    child: ListTile(
+                      title: Center(
+                        child: Text(
+                          'Cadastrar Usuário',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      trailing: Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+                Spacing(20.0),
+                Card(
+                  color: Colors.white,
+                  child: InkWell(
+                    splashColor: mainPurple,
+                    onTap: () {
+                      Navigator.pushNamed(context, '/search_user');
+                      //COMEÇAR button action here
+                    },
+                    child: ListTile(
+                      title: Center(
+                        child: Text(
+                          'Ver Perfis Ativos',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20.0,
