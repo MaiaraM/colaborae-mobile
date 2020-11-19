@@ -1,4 +1,3 @@
-import 'package:colaborae/search_users.dart';
 import 'package:flutter/material.dart';
 
 import 'package:colaborae/user_register.dart';
@@ -9,6 +8,8 @@ import 'package:colaborae/service_register.dart';
 import 'package:colaborae/search_services.dart';
 import 'package:colaborae/user_profile.dart';
 import 'package:colaborae/worker_profile.dart';
+import 'package:colaborae/home.dart';
+import 'package:colaborae/search_users.dart';
 
 void main() {
   // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/user_profile': (context) => UserProfile(),
         '/worker_profile': (context) => WorkerProfile(),
         '/search_user': (context) => SearchUsers(),
+        '/home': (context) => HomePage(),
         //ADD more routes here,
       },
       debugShowCheckedModeBanner: false,

@@ -21,27 +21,33 @@ Future<UserModel> createUser(
     String bairro,
     String cidade,
     String estado,
+    String senha,
     String descricao) async {
   final String baseUrl = 'https://api-colaborae.herokuapp.com/users/';
 
   try {
-    Map<String, String> headers = {"Content-type": "application/json"};
+    Map<String, String> headers = {
+      "Content-type": "application/json; charset=utf-8"
+    };
     var body = jsonEncode({
       "firstName": nome,
       "lastName": sobrenome,
       "email": email,
       "document": cpf,
       "address": {"address": rua, "city": cidade, "state": estado},
-      "description": descricao
+      "description": descricao,
+      "password": senha
     });
 
     var response = await http.post(baseUrl, headers: headers, body: body);
     if (response.statusCode == 201) {
       String responseString = response.body;
       print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
+      print(response.statusCode);
       return userModelFromJson(responseString);
     } else {
       print('CRIAÇÃO DE USUÁRIO FALHOU.');
+      print(response.statusCode);
       return null;
     }
   } catch (e) {
@@ -153,17 +159,6 @@ class _UserRegisterState extends State<UserRegister> {
                 ),
                 Spacing(20.0),
                 Field(
-                  label: 'Senha',
-                  icon: Icon(
-                    Icons.lock,
-                    color: gray,
-                  ),
-                  lines: 1,
-                  hint: 'Digite uma nova senha',
-                  controller: senhaController,
-                ),
-                Spacing(20.0),
-                Field(
                   label: 'CPF',
                   hint: 'Digite seu CPF',
                   icon: Icon(
@@ -173,6 +168,17 @@ class _UserRegisterState extends State<UserRegister> {
                   lines: 1,
                   controller: cpfController,
                   keyboardInputType: TextInputType.number,
+                ),
+                Spacing(20.0),
+                Field(
+                  label: 'Senha',
+                  icon: Icon(
+                    Icons.lock,
+                    color: gray,
+                  ),
+                  lines: 1,
+                  hint: 'Digite uma nova senha',
+                  controller: senhaController,
                 ),
                 Spacing(30.0),
                 Row(
@@ -262,27 +268,17 @@ class _UserRegisterState extends State<UserRegister> {
                     cidade = cidadeController.text;
                     estado = estadoController.text;
                     descricao = descricaoController.text;
+                    senha = senhaController.text;
 
                     // final Address endereco =
                     // Address(address: rua, city: cidade, state: estado);
                     try {
                       UserModel user = await createUser(nome, sobrenome, email,
-                          cpf, rua, bairro, cidade, estado, descricao);
+                          cpf, rua, bairro, cidade, estado, senha, descricao);
+                      Navigator.pushNamed(context, '/home');
                     } catch (e) {
                       print(e);
                     }
-                    setState(() {
-                      nome = '';
-                      sobrenome = '';
-                      email = '';
-                      cpf = '';
-                      rua = '';
-                      bairro = '';
-                      cidade = '';
-                      estado = '';
-                      descricao = '';
-                    });
-                    //Navigator.pushNamed(context, '/buscar_servico');
                   },
                 ),
                 Spacing(20.0),

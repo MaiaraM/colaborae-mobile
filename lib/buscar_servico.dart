@@ -9,7 +9,7 @@ import 'dart:async';
 import 'package:colaborae/constants.dart';
 import 'package:colaborae/components/category_card.dart';
 import 'package:colaborae/search_services.dart';
-import 'package:colaborae/components/bottom_nav_bar.dart';
+//import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:colaborae/components/tab_header.dart';
 
 class BuscarServico extends StatefulWidget {
@@ -321,7 +321,7 @@ class _BuscarServicoState extends State<BuscarServico> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      //bottomNavigationBar: BottomNavBar(),
     );
   }
 }

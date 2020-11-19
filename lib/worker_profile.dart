@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
-import 'package:colaborae/components/bottom_nav_bar.dart';
+//import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:colaborae/components/service_item.dart';
-import 'package:colaborae/components/rating_item.dart';
+//import 'package:colaborae/components/rating_item.dart';
 
 class WorkerProfile extends StatefulWidget {
   @override
@@ -226,7 +226,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      //bottomNavigationBar: BottomNavBar(),
     );
   }
 }

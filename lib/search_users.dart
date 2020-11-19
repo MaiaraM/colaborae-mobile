@@ -1,19 +1,16 @@
 // TELA DE QUANDO CLICA NA CATEGORIA EM BUSCAR USUARIO
-import 'package:colaborae/components/bottom_nav_bar.dart';
+//import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
 import 'package:colaborae/components/tab_header.dart';
-import 'package:colaborae/components/service_item.dart';
+import 'package:colaborae/components/user_item.dart';
 
 // Requests
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 class SearchUsers extends StatefulWidget {
-
   // SearchUsers({this.userInput});
-  //
   // final userInput;
 
   @override
@@ -24,7 +21,6 @@ const base_url = 'http://api-colaborae.herokuapp.com';
 const services_url = '/users';
 
 class _SearchUsersState extends State<SearchUsers> {
-
   List<Widget> itemsList = [];
   int itemsCount = 0;
 
@@ -37,34 +33,31 @@ class _SearchUsersState extends State<SearchUsers> {
   }
 
   void searchUser() async {
-    http.Response res = await http.get('$base_url$services_url?page=0&size=99');
+    http.Response res = await http.get('$base_url$services_url?page=0&size=99',
+        headers: {'Content-Type': 'application/json'});
 
     if (res.statusCode == 200) {
       String data = res.body;
-      var jsonParse = jsonDecode(data);
+      var jsonParse = jsonDecode(utf8.decode(data.codeUnits));
 
-      generateServiceItem(jsonParse);
+      generateUserItem(jsonParse);
     } else {
       print(res.statusCode);
     }
   }
 
-  void generateServiceItem(dynamic json) {
-
-
+  void generateUserItem(dynamic json) {
     for (int i = 0; i < 99; i++) {
-
-      if(json['content'][i]['active'] == true){
-
+      if (json['content'][i]['active'] == true) {
         var name, surname, description;
 
         name = json['content'][i]['firstName'];
         surname = json['content'][i]['lastName'];
         description = json['content'][i]['description'];
 
-        itemsList.add(ServiceItem(
+        itemsList.add(UserItem(
             backgroundColor: musica,
-            image: 'profiles/pfp1.png',
+            image: 'profiles/pfp4.jpg',
             title: '$name $surname',
             description: description,
             onPress: () {
@@ -76,7 +69,6 @@ class _SearchUsersState extends State<SearchUsers> {
         setState(() {});
 
         itemsCount++;
-
       }
     }
   }
@@ -103,7 +95,7 @@ class _SearchUsersState extends State<SearchUsers> {
               ),
               Text(
                 itemsCount != 0
-                    ? 'Foram encontrados ${itemsCount} resultados.'
+                    ? 'Foram encontrados $itemsCount resultados.'
                     : 'Nenhum usuário encontrado.',
                 style: TextStyle(
                   color: lightGray,
@@ -120,7 +112,7 @@ class _SearchUsersState extends State<SearchUsers> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      //bottomNavigationBar: BottomNavBar(),
     );
   }
 }

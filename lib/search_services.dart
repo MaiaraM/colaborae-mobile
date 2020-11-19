@@ -1,9 +1,11 @@
 // TELA DE QUANDO CLICA NA CATEGORIA EM BUSCAR SERVIÇO
-import 'package:colaborae/components/bottom_nav_bar.dart';
+//import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:colaborae/constants.dart';
 import 'package:colaborae/components/tab_header.dart';
 import 'package:colaborae/components/service_item.dart';
+
+//import 'package:flutter_svg/flutter_svg.dart';
 
 // Requests
 import 'package:http/http.dart' as http;
@@ -34,11 +36,12 @@ class _SearchServiceState extends State<SearchService> {
   }
 
   void searchService(String userInput) async {
-    http.Response res = await http.get('$services_url/search?title=$userInput');
+    http.Response res = await http.get('$services_url/search?title=$userInput',
+        headers: {'Content-Type': 'application/json'});
 
     if (res.statusCode == 200) {
       String data = res.body;
-      var jsonParse = jsonDecode(data);
+      var jsonParse = jsonDecode(utf8.decode(data.codeUnits));
       generateServiceItem(jsonParse);
     } else {
       print(res.statusCode);
@@ -54,12 +57,12 @@ class _SearchServiceState extends State<SearchService> {
       price = json[i]['value'];
 
       itemsList.add(ServiceItem(
-          backgroundColor: musica,
-          image: 'imagens/piano.png',
+          backgroundColor: outros,
+          image: 'imagens/tea_S.png',
           title: title,
           description: description,
           price: price,
-          rating: 'N/E',
+          rating: 'five-stars',
           onPress: () {
             print('Serviço selecionado.');
           }));
@@ -111,7 +114,7 @@ class _SearchServiceState extends State<SearchService> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      //bottomNavigationBar: BottomNavBar(),
     );
   }
 }
