@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
-import 'package:colaborae/components/tab_header.dart';
-import 'package:colaborae/components/field.dart';
-import 'package:colaborae/components/big_button.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
+import 'package:colaborae/app/shared/components/tab_header.dart';
+import 'package:colaborae/app/shared/components/field.dart';
+import 'package:colaborae/app/shared/components/big_button.dart';
 //import 'package:colaborae/components/bottom_nav_bar.dart';
-import 'package:colaborae/models/service_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'models/service_model.dart';
 
 class CadastroServico extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
 
 class BigButton extends StatelessWidget {
   BigButton({@required this.text, this.onPressed});

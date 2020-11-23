@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
-//import 'package:colaborae/components/bottom_nav_bar.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
+import 'package:colaborae/app/shared/components/bottom_nav_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:colaborae/components/service_item.dart';
-//import 'package:colaborae/components/rating_item.dart';
+import 'package:colaborae/app/shared/components/service_item.dart';
 
-class WorkerProfile extends StatefulWidget {
+class UserProfile extends StatefulWidget {
   @override
-  _WorkerProfileState createState() => _WorkerProfileState();
+  _UserProfileState createState() => _UserProfileState();
 }
 
-class _WorkerProfileState extends State<WorkerProfile> {
+class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +28,13 @@ class _WorkerProfileState extends State<WorkerProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Viviane',
+                          'Olívia,',
                           style: TextStyle(
                             fontSize: 20,
                           ),
                         ),
                         Text(
-                          'Carvalho Alves',
+                          'bem-vinda!',
                           style: TextStyle(
                             fontSize: 22,
                             height: 1.2,
@@ -50,12 +49,9 @@ class _WorkerProfileState extends State<WorkerProfile> {
                         shape: CircleBorder(),
                       ),
                       child: IconButton(
-                        icon: Icon(
-                          Icons.flag,
-                          color: red,
-                        ),
+                        icon: SvgPicture.asset('images/svg/edit.svg'),
                         onPressed: () {
-                          print('Botão denunciar pressionado');
+                          print('Editar perfil pressionado');
                         },
                       ),
                     ),
@@ -83,7 +79,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(
-                          'images/profiles/pfp2.jpg',
+                          'images/profiles/pfp1.png',
                         ),
                       ),
                     ),
@@ -170,9 +166,9 @@ class _WorkerProfileState extends State<WorkerProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Serviços oferecidos',
+                      'Meus serviços',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w800,
                         fontSize: 24,
                       ),
                     ),
@@ -180,7 +176,41 @@ class _WorkerProfileState extends State<WorkerProfile> {
                   ],
                 ),
                 SizedBox(
-                  height: 20.0,
+                  height: 8.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ActionChip(
+                      onPressed: () {
+                        print('Recentes pressionado');
+                      },
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 41.0),
+                      backgroundColor: mainPurple,
+                      label: Text('Recentes'),
+                      labelStyle: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Poppins'),
+                    ),
+                    ActionChip(
+                      onPressed: () {
+                        print('Antigos pressionado');
+                      },
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 41.0),
+                      backgroundColor: Colors.white,
+                      label: Text('Antigos'),
+                      labelStyle: TextStyle(
+                          color: gray,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Poppins'),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 12.0,
                 ),
                 Column(
                   children: [
@@ -208,14 +238,15 @@ class _WorkerProfileState extends State<WorkerProfile> {
                     SizedBox(
                       height: 15.0,
                     ),
-                    /*RatingItem(
-                      title: 'Donuts',
-                      userName: 'Rafaela Pinheiro',
-                      comment:
-                          'Podemos já vislumbrar o modo pelo qual o fenômeno da internet ainda não demonstrou convincentemente que vai participar na mudança do impacto na agilidade decisória.',
-                      price: 100,
-                      date: '13/11/2020',
-                    ),*/
+                    ServiceItem(
+                      backgroundColor: comida,
+                      image: 'hotdog',
+                      title: 'Aula de piano',
+                      description:
+                          'Aulas de piano e teoria musical. Segundas e Quintas',
+                      price: 25.0,
+                      rating: '5.0',
+                    ),
                     SizedBox(
                       height: 15.0,
                     ),
@@ -226,7 +257,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
           ),
         ),
       ),
-      //bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

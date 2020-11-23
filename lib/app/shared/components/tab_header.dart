@@ -1,4 +1,4 @@
-import 'package:colaborae/constants.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
