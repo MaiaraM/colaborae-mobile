@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 
-class ServiceItem extends StatelessWidget {
-  ServiceItem(
+class UserItem extends StatelessWidget {
+  UserItem(
       {this.backgroundColor,
       this.image,
       @required this.title,
       @required this.description,
-      @required this.price,
-      this.rating,
       this.onPress});
 
   final Color backgroundColor;
   final String image;
   final String title;
   final String description;
-  final double price;
-  final String rating;
   final Function onPress;
 
   @override
@@ -27,7 +23,7 @@ class ServiceItem extends StatelessWidget {
       child: Container(
         // height original dos serviços = 107
         // height dos usuários = 150+
-        height: 160,
+        height: 170.0,
         decoration: BoxDecoration(
           border: Border.all(
             color: lighterGray,
@@ -42,15 +38,10 @@ class ServiceItem extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: Container(
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: backgroundColor,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Image.asset('images/$image'),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.asset(
+                    'images/profiles/pfp1.png',
                   ),
                 ),
               ),
@@ -68,7 +59,7 @@ class ServiceItem extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          height: 1.2,
+                          height: 1.3,
                         ),
                       ),
                       SizedBox(
@@ -89,16 +80,12 @@ class ServiceItem extends StatelessWidget {
               SizedBox(
                 width: 15,
               ),
-              Column(
+              /*Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'R\$ $price',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
-                    ),
+                  SizedBox(
+                    height: 10,
                   ),
                   SvgPicture.asset(
                     'images/svg/$rating.svg',
@@ -106,7 +93,7 @@ class ServiceItem extends StatelessWidget {
                     color: yellow,
                   ),
                 ],
-              ),
+              ),*/
             ],
           ),
         ),

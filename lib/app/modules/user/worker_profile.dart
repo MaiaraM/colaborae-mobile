@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
-import 'package:colaborae/components/bottom_nav_bar.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
+//import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:colaborae/components/service_item.dart';
+import 'package:colaborae/app/shared/components/service_item.dart';
+//import 'package:colaborae/components/rating_item.dart';
 
-class UserProfile extends StatefulWidget {
+class WorkerProfile extends StatefulWidget {
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _WorkerProfileState createState() => _WorkerProfileState();
 }
 
-class _UserProfileState extends State<UserProfile> {
+class _WorkerProfileState extends State<WorkerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,13 +29,13 @@ class _UserProfileState extends State<UserProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Olívia,',
+                          'Viviane',
                           style: TextStyle(
                             fontSize: 20,
                           ),
                         ),
                         Text(
-                          'bem-vinda!',
+                          'Carvalho Alves',
                           style: TextStyle(
                             fontSize: 22,
                             height: 1.2,
@@ -49,9 +50,12 @@ class _UserProfileState extends State<UserProfile> {
                         shape: CircleBorder(),
                       ),
                       child: IconButton(
-                        icon: SvgPicture.asset('images/svg/edit.svg'),
+                        icon: Icon(
+                          Icons.flag,
+                          color: red,
+                        ),
                         onPressed: () {
-                          print('Editar perfil pressionado');
+                          print('Botão denunciar pressionado');
                         },
                       ),
                     ),
@@ -79,7 +83,7 @@ class _UserProfileState extends State<UserProfile> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(
-                          'images/profiles/pfp1.png',
+                          'images/profiles/pfp2.jpg',
                         ),
                       ),
                     ),
@@ -166,9 +170,9 @@ class _UserProfileState extends State<UserProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Meus serviços',
+                      'Serviços oferecidos',
                       style: TextStyle(
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.bold,
                         fontSize: 24,
                       ),
                     ),
@@ -176,41 +180,7 @@ class _UserProfileState extends State<UserProfile> {
                   ],
                 ),
                 SizedBox(
-                  height: 8.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ActionChip(
-                      onPressed: () {
-                        print('Recentes pressionado');
-                      },
-                      padding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 41.0),
-                      backgroundColor: mainPurple,
-                      label: Text('Recentes'),
-                      labelStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins'),
-                    ),
-                    ActionChip(
-                      onPressed: () {
-                        print('Antigos pressionado');
-                      },
-                      padding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 41.0),
-                      backgroundColor: Colors.white,
-                      label: Text('Antigos'),
-                      labelStyle: TextStyle(
-                          color: gray,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins'),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 12.0,
+                  height: 20.0,
                 ),
                 Column(
                   children: [
@@ -238,15 +208,14 @@ class _UserProfileState extends State<UserProfile> {
                     SizedBox(
                       height: 15.0,
                     ),
-                    ServiceItem(
-                      backgroundColor: comida,
-                      image: 'hotdog',
-                      title: 'Aula de piano',
-                      description:
-                          'Aulas de piano e teoria musical. Segundas e Quintas',
-                      price: 25.0,
-                      rating: '5.0',
-                    ),
+                    /*RatingItem(
+                      title: 'Donuts',
+                      userName: 'Rafaela Pinheiro',
+                      comment:
+                          'Podemos já vislumbrar o modo pelo qual o fenômeno da internet ainda não demonstrou convincentemente que vai participar na mudança do impacto na agilidade decisória.',
+                      price: 100,
+                      date: '13/11/2020',
+                    ),*/
                     SizedBox(
                       height: 15.0,
                     ),
@@ -257,7 +226,7 @@ class _UserProfileState extends State<UserProfile> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      //bottomNavigationBar: BottomNavBar(),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
 
 class CategoryCard extends StatelessWidget {
   CategoryCard(

@@ -1,49 +1,23 @@
+import 'package:colaborae/app/shared/auth/auth_controller.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
+import 'package:colaborae/app/shared/components/big_button.dart';
+import 'package:colaborae/app/shared/components/field.dart';
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
-import 'package:colaborae/components/field.dart';
-import 'package:colaborae/components/big_button.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-class Login extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginPageState extends State<LoginPage> {
+  final loginRepository = Modular.get<AuthController>();
+
   Widget Spacing(double h) {
     return SizedBox(
       height: h,
     );
-  }
-
-  Future loginUser(String email, String senha) async {
-    final String baseUrl = 'https://api-colaborae.herokuapp.com/login/';
-
-    try {
-      Map<String, String> headers = {"Content-type": "application/json"};
-      var body = jsonEncode({
-        "email": email,
-        "password": senha,
-      });
-
-      var response = await http.post(baseUrl, headers: headers, body: body);
-      if (response.statusCode == 201) {
-        print('Login feito com sucesso.');
-        Navigator.pushNamed(context, '/buscar_servico');
-        return response;
-      } else {
-        print('Falha ao logar.');
-        print(response.statusCode);
-        setState(() {
-          message = 'Falha ao logar.';
-        });
-        return null;
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   final emailController = TextEditingController();
@@ -99,6 +73,7 @@ class _LoginState extends State<Login> {
                     ),
                     lines: 1,
                     keyboardInputType: TextInputType.emailAddress,
+                    controller: senhaController,
                   ),
                   Spacing(15.0),
                   Row(
@@ -131,7 +106,7 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                   Text(
-                    message,
+                    loginRepository.auth_token ? "Erro ao Logar" : message,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -140,13 +115,7 @@ class _LoginState extends State<Login> {
                   BigButton(
                     text: 'ENTRAR',
                     onPressed: () async {
-                      email = emailController.text;
-                      senha = senhaController.text;
-                      setState(() {
-                        message = 'Por favor, aguarde...';
-                      });
-                      var login = loginUser(email, senha);
-                      print(login);
+                      makeLogin();
                     },
                   ),
                 ],
@@ -156,5 +125,14 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void makeLogin() {
+    email = emailController.text;
+    senha = senhaController.text;
+    setState(() {
+      message = 'Por favor, aguarde...';
+    });
+    loginRepository.login(email, senha);
   }
 }

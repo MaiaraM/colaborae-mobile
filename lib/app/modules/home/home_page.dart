@@ -1,9 +1,9 @@
-import 'package:colaborae/constants.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:colaborae/user_register.dart';
+import 'package:colaborae/app/modules/login/user_register_page.dart';
 import 'package:colaborae/start.dart';
-import 'package:colaborae/buscar_servico.dart';
-import 'package:colaborae/search_users.dart';
+import 'package:colaborae/app/modules/service/buscar_servico.dart';
+import 'package:colaborae/app/modules/user/search_users.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -37,19 +37,19 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.navigation),
-            label: 'Início',
+            title: Text('Início'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Buscar',
+            title: Text('Buscar'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: 'Cadastro',
+            icon: Icon(Icons.add),
+            title: Text('Cadastro'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Usuários',
+            title: Text('Usuários'),
           ),
         ],
       ),

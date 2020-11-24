@@ -1,9 +1,9 @@
 // TELA DE QUANDO CLICA NA CATEGORIA EM BUSCAR USUARIO
 //import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
-import 'package:colaborae/components/tab_header.dart';
-import 'package:colaborae/components/user_item.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
+import 'package:colaborae/app/shared/components/tab_header.dart';
+import 'package:colaborae/app/shared/components/user_item.dart';
 
 // Requests
 import 'package:http/http.dart' as http;

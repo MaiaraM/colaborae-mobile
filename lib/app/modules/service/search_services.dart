@@ -1,9 +1,9 @@
 // TELA DE QUANDO CLICA NA CATEGORIA EM BUSCAR SERVIÇO
 //import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:colaborae/constants.dart';
-import 'package:colaborae/components/tab_header.dart';
-import 'package:colaborae/components/service_item.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
+import 'package:colaborae/app/shared/components/tab_header.dart';
+import 'package:colaborae/app/shared/components/service_item.dart';
 
 //import 'package:flutter_svg/flutter_svg.dart';
 
