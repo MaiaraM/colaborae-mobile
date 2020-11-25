@@ -1,11 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:colaborae/app/shared/components/field.dart';
 import 'package:colaborae/app/shared/components/big_button.dart';
 import 'package:colaborae/app/modules/user/models/user_model.dart';
+
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:dio/dio.dart';
 
 class UserRegister extends StatefulWidget {
   @override
@@ -22,6 +23,7 @@ Future<UserModel> createUser(
     String cidade,
     String estado,
     String senha,
+    String username,
     String descricao) async {
   final String baseUrl = 'https://api-colaborae.herokuapp.com/users/';
 
@@ -33,15 +35,18 @@ Future<UserModel> createUser(
       "firstName": nome,
       "lastName": sobrenome,
       "email": email,
+      "username": username,
       "document": cpf,
       "address": {"address": rua, "city": cidade, "state": estado},
       "description": descricao,
       "password": senha
     });
 
-    var response = await http.post(baseUrl, headers: headers, body: body);
+    Dio dio = new Dio();
+
+    var response = await dio.post(baseUrl, data: body);
     if (response.statusCode == 201) {
-      String responseString = response.body;
+      String responseString = response.data;
       print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
       print(response.statusCode);
       return userModelFromJson(responseString);
@@ -83,6 +88,7 @@ class _UserRegisterState extends State<UserRegister> {
   String cidade = '';
   String estado = '';
   String descricao = '';
+  String username = '';
 
   @override
   Widget build(BuildContext context) {
@@ -269,13 +275,27 @@ class _UserRegisterState extends State<UserRegister> {
                     estado = estadoController.text;
                     descricao = descricaoController.text;
                     senha = senhaController.text;
+                    username = emailController.text;
 
                     // final Address endereco =
                     // Address(address: rua, city: cidade, state: estado);
                     try {
-                      UserModel user = await createUser(nome, sobrenome, email,
-                          cpf, rua, bairro, cidade, estado, senha, descricao);
-                      Navigator.pushNamed(context, '/home');
+                      print("Botão cadastrar pressionado.");
+                      UserModel user = await createUser(
+                          nome,
+                          sobrenome,
+                          email,
+                          cpf,
+                          rua,
+                          bairro,
+                          cidade,
+                          estado,
+                          senha,
+                          username,
+                          descricao);
+                      if (user != null) {
+                        Navigator.pushNamed(context, '/');
+                      }
                     } catch (e) {
                       print(e);
                     }

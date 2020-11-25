@@ -18,6 +18,8 @@ class UserModel {
     this.firstName,
     this.lastName,
     this.email,
+    this.username,
+    this.password,
     this.document,
     this.address,
     this.description,
@@ -32,6 +34,8 @@ class UserModel {
   String firstName;
   String lastName;
   String email;
+  String username;
+  String password;
   String document;
   dynamic address;
   String description;
@@ -46,6 +50,8 @@ class UserModel {
         firstName: json["firstName"],
         lastName: json["lastName"],
         email: json["email"],
+        username: json["username"],
+        password: json["password"],
         document: json["document"],
         address: Address.fromJson(json["address"]),
         description: json["description"],
@@ -61,6 +67,8 @@ class UserModel {
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
+        "username": username,
+        "password": password,
         "document": document,
         "address": address.toJson(),
         "description": description,
