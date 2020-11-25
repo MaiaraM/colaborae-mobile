@@ -3,6 +3,7 @@ import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:colaborae/app/shared/components/field.dart';
 import 'package:colaborae/app/shared/components/big_button.dart';
 import 'package:colaborae/app/modules/user/models/user_model.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -13,54 +14,49 @@ class UserRegister extends StatefulWidget {
   _UserRegisterState createState() => _UserRegisterState();
 }
 
-Future<UserModel> createUser(
-    String nome,
-    String sobrenome,
-    String email,
-    String cpf,
-    String rua,
-    String bairro,
-    String cidade,
-    String estado,
-    String senha,
-    String username,
-    String descricao) async {
-  final String baseUrl = 'https://api-colaborae.herokuapp.com/users/';
-
-  try {
-    Map<String, String> headers = {
-      "Content-type": "application/json; charset=utf-8"
-    };
-    var body = jsonEncode({
-      "firstName": nome,
-      "lastName": sobrenome,
-      "email": email,
-      "username": username,
-      "document": cpf,
-      "address": {"address": rua, "city": cidade, "state": estado},
-      "description": descricao,
-      "password": senha
-    });
-
-    Dio dio = new Dio();
-
-    var response = await dio.post(baseUrl, data: body);
-    if (response.statusCode == 201) {
-      String responseString = response.data;
-      print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
-      print(response.statusCode);
-      return userModelFromJson(responseString);
-    } else {
-      print('CRIAÇÃO DE USUÁRIO FALHOU.');
-      print(response.statusCode);
-      return null;
-    }
-  } catch (e) {
-    print(e);
-  }
-}
-
 class _UserRegisterState extends State<UserRegister> {
+  final dio = Modular.get<Dio>();
+
+  Future<UserModel> createUser(
+      String nome,
+      String sobrenome,
+      String email,
+      String cpf,
+      String rua,
+      String bairro,
+      String cidade,
+      String estado,
+      String senha,
+      String username,
+      String descricao) async {
+    try {
+      var body = jsonEncode({
+        "firstName": nome,
+        "lastName": sobrenome,
+        "email": email,
+        "username": username,
+        "document": cpf,
+        "address": {"address": rua, "city": cidade, "state": estado},
+        "description": descricao,
+        "password": senha
+      });
+
+      var response = await dio.post("/users", data: body);
+      if (response.statusCode == 201) {
+        String responseString = response.data;
+        print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
+        print(response.statusCode);
+        return userModelFromJson(responseString);
+      } else {
+        print('CRIAÇÃO DE USUÁRIO FALHOU.');
+        print(response.statusCode);
+        return null;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Widget Spacing(double h) {
     return SizedBox(
       height: h,
