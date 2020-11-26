@@ -1,3 +1,4 @@
+import 'package:colaborae/app/modules/service/service_register_page.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:colaborae/app/modules/login/user_register_page.dart';
@@ -15,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _children = [
     StartingPage(),
     BuscarServico(),
-    UserRegister(),
+    CadastroServico(),
     SearchUsers(),
   ];
 

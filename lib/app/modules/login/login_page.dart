@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final loginRepository = Modular.get<AuthController>();
+  final loginController = Modular.get<AuthController>();
 
   Widget Spacing(double h) {
     return SizedBox(
@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   String email = '';
   String senha = '';
   String message = '';
+  bool showPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,18 @@ class _LoginPageState extends State<LoginPage> {
                       letterSpacing: 1.0,
                     ),
                   ),
+                  Observer(builder: (_) {
+                    return !loginController.loading &&
+                            loginController.auth_token != null &&
+                            !loginController.auth_token
+                        ? Text(
+                            "Ops! Alguma informação está incorreta",
+                            style: TextStyle(color: Colors.deepOrange),
+                          )
+                        : SizedBox(
+                            height: 2,
+                          );
+                  }),
                   Spacing(30.0),
                   Field(
                     label: 'E-mail',
@@ -67,9 +80,15 @@ class _LoginPageState extends State<LoginPage> {
                   Field(
                     label: 'Senha',
                     hint: 'Digite sua senha',
-                    icon: Icon(
-                      Icons.lock,
-                      color: gray,
+                    showText: showPassword,
+                    icon: GestureDetector(
+                      onTap: () => setState(() {
+                        showPassword = !showPassword;
+                      }),
+                      child: Icon(
+                        showPassword ? Icons.lock : Icons.remove_red_eye,
+                        color: gray,
+                      ),
                     ),
                     lines: 1,
                     keyboardInputType: TextInputType.emailAddress,
@@ -90,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/user_register');
+                          Modular.to.pushNamed('/user_register');
                         },
                         child: Text(
                           'Cadastre-se!',
@@ -105,17 +124,20 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  Text(
-                    loginRepository.auth_token ? "Erro ao Logar" : message,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Spacing(20.0),
+                  Observer(builder: (_) {
+                    return loginController.loading
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(),
+                          )
+                        : SizedBox(
+                            height: 2,
+                          );
+                  }),
                   BigButton(
                     text: 'ENTRAR',
                     onPressed: () async {
-                      makeLogin();
+                      await makeLogin();
                     },
                   ),
                 ],
@@ -127,12 +149,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void makeLogin() {
-    email = emailController.text;
-    senha = senhaController.text;
-    setState(() {
-      message = 'Por favor, aguarde...';
-    });
-    loginRepository.login(email, senha);
+  Future<void> makeLogin() async {
+    await loginController.login(emailController.text, senhaController.text);
+    if (loginController.auth_token) {
+      Modular.to.pushNamed("/");
+    }
   }
 }

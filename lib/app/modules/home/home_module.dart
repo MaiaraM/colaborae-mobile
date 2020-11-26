@@ -10,10 +10,7 @@ import 'home_page.dart';
 
 class HomeModule extends ChildModule {
   @override
-  List<Bind> get binds => [
-        // Bind((i) => HomeController(i.get<Herorepository>())),
-        // Bind((i) => Herorepository(i.get<Dio>())),
-      ];
+  List<Bind> get binds => [];
 
   @override
   List<ModularRouter> get routers => [

@@ -1,6 +1,7 @@
 import 'package:colaborae/app/modules/login/models/login.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 
 import 'auth_repository_interface.dart';
 

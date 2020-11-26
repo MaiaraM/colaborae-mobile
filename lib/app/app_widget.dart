@@ -11,7 +11,7 @@ class AppWidget extends StatelessWidget {
         visualDensity: VisualDensity.comfortable,
         fontFamily: 'Poppins',
       ),
-      initialRoute: '/login',
+      initialRoute: '/splash',
       navigatorKey: Modular.navigatorKey,
       onGenerateRoute: Modular.generateRoute,
       debugShowCheckedModeBanner: false,

@@ -29,6 +29,11 @@ const eletronicos = Color(0xFFBCBBBB);
 const animais = Color(0xFFFFEDD8);
 const outros = Color(0xFFB1FFCB);
 
+class Images {
+  static const LOGO = 'images/svg/logo.svg';
+  static const LOGO_TEXTO = 'images/svg/logo_text.svg';
+}
+
 // Images
 const comidaImg = 'images/imagens/hotdog.png';
 const musicaImg = 'images/imagens/piano.png';
@@ -44,3 +49,6 @@ const outrosImg = 'images/imagens/tea_S.png';
 
 // Padding
 const padding = EdgeInsets.fromLTRB(25, 25, 25, 0);
+
+//Url
+const String URL_BASE = "https://api-colaborae.herokuapp.com/";
