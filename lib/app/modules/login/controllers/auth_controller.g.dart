@@ -39,6 +39,21 @@ mixin _$AuthController on _AuthController, Store {
     });
   }
 
+  final _$erroAtom = Atom(name: '_AuthController.erro');
+
+  @override
+  bool get erro {
+    _$erroAtom.reportRead();
+    return super.erro;
+  }
+
+  @override
+  set erro(bool value) {
+    _$erroAtom.reportWrite(value, super.erro, () {
+      super.erro = value;
+    });
+  }
+
   final _$loginAsyncAction = AsyncAction('_AuthController.login');
 
   @override
@@ -64,7 +79,8 @@ mixin _$AuthController on _AuthController, Store {
   String toString() {
     return '''
 auth_token: ${auth_token},
-loading: ${loading}
+loading: ${loading},
+erro: ${erro}
     ''';
   }
 }

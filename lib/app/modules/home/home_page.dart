@@ -1,10 +1,10 @@
 import 'package:colaborae/app/modules/service/service_register_page.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:colaborae/app/modules/login/user_register_page.dart';
+import 'package:colaborae/app/modules/user/pages/user_register_page.dart';
 import 'package:colaborae/start.dart';
 import 'package:colaborae/app/modules/service/buscar_servico.dart';
-import 'package:colaborae/app/modules/user/search_users.dart';
+import 'package:colaborae/app/modules/user/pages/search_users.dart';
 
 class HomePage extends StatefulWidget {
   @override

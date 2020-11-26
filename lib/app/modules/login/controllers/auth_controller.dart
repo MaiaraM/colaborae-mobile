@@ -1,4 +1,4 @@
-import 'package:colaborae/app/shared/auth/repositories/auth_repository.dart';
+import 'package:colaborae/app/shared/repositories/auth_repository.dart';
 import 'package:colaborae/app/shared/service/shared_local_storage_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -18,6 +18,9 @@ abstract class _AuthController with Store {
   @observable
   bool loading = false;
 
+  @observable
+  bool erro = false;
+
   @action
   login(String username, String password) async {
     loading = true;
@@ -25,8 +28,10 @@ abstract class _AuthController with Store {
     if (token != null) {
       localStorage.put("auth_token", token);
       auth_token = true;
+      erro = false;
     } else {
       auth_token = false;
+      erro = true;
     }
     loading = false;
   }

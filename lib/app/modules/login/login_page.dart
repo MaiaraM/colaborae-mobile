@@ -1,10 +1,11 @@
-import 'package:colaborae/app/shared/auth/auth_controller.dart';
+import 'package:colaborae/app/modules/login/controllers/auth_controller.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:colaborae/app/shared/components/big_button.dart';
 import 'package:colaborae/app/shared/components/field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   String email = '';
   String senha = '';
   String message = '';
-  bool showPassword = false;
+  bool ocultPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Observer(builder: (_) {
-                    return !loginController.loading &&
-                            loginController.auth_token != null &&
-                            !loginController.auth_token
+                    return loginController.erro
                         ? Text(
                             "Ops! Alguma informação está incorreta",
                             style: TextStyle(color: Colors.deepOrange),
@@ -80,13 +79,13 @@ class _LoginPageState extends State<LoginPage> {
                   Field(
                     label: 'Senha',
                     hint: 'Digite sua senha',
-                    showText: showPassword,
+                    showText: ocultPassword,
                     icon: GestureDetector(
                       onTap: () => setState(() {
-                        showPassword = !showPassword;
+                        ocultPassword = !ocultPassword;
                       }),
                       child: Icon(
-                        showPassword ? Icons.lock : Icons.remove_red_eye,
+                        ocultPassword ? Icons.remove_red_eye : Icons.lock,
                         color: gray,
                       ),
                     ),
@@ -152,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> makeLogin() async {
     await loginController.login(emailController.text, senhaController.text);
     if (loginController.auth_token) {
-      Modular.to.pushNamed("/");
+      Modular.to.popAndPushNamed("/");
     }
   }
 }
