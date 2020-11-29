@@ -6,11 +6,11 @@ class UserRepository {
 
   UserRepository(this.baseRepository);
 
-  Future<String> getUser(String uuid) async {
+  Future<dynamic> getUser(String uuid) async {
     try {
       var response = await baseRepository.get(url: "/users/$uuid");
-      if (response.headers.value("authorization").isNotEmpty) {
-        return response.headers.value("authorization");
+      if (response.data != null) {
+        return response.data;
       }
     } catch (e) {
       print(e);

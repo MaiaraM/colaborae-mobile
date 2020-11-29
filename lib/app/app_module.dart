@@ -12,6 +12,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../start.dart';
 import 'app_widget.dart';
+import 'modules/home/home_page.dart';
 import 'modules/login/controllers/auth_controller.dart';
 import 'modules/login/login_module.dart';
 import 'modules/user/controllers/user_controller.dart';
@@ -27,7 +28,8 @@ class AppModule extends MainModule {
         Bind((i) => AuthRepository(i.get<BaseRepository>())),
         Bind((i) => SharedLocalStorageService()),
         Bind((i) => UserRepository(i.get<BaseRepository>())),
-        Bind((i) => UserController(i.get<UserRepository>())),
+        Bind((i) => UserController(
+            i.get<UserRepository>(), i.get<SharedLocalStorageService>())),
         Bind((i) => AuthController(
             i.get<AuthRepository>(), i.get<SharedLocalStorageService>())),
       ];
@@ -42,10 +44,11 @@ class AppModule extends MainModule {
           '/',
           module: UserModule(),
         ),
-        ModularRouter('/start',
-            child: (_, args) => StartingPage(),
-            guards: [GuardRoutes()],
-            transition: TransitionType.fadeIn),
+        ModularRouter(
+          '/home',
+          child: (_, args) => HomePage(),
+          guards: [GuardRoutes()],
+        ),
         ModularRouter('/user_register', child: (_, __) => UserRegister()),
       ];
 

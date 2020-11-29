@@ -1,10 +1,9 @@
+import 'package:colaborae/app/modules/service/buscar_servico.dart';
 import 'package:colaborae/app/modules/service/service_register_page.dart';
+import 'package:colaborae/app/modules/user/pages/search_users.dart';
+import 'package:colaborae/app/modules/user/pages/user_profile_page.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:colaborae/app/modules/user/pages/user_register_page.dart';
-import 'package:colaborae/start.dart';
-import 'package:colaborae/app/modules/service/buscar_servico.dart';
-import 'package:colaborae/app/modules/user/pages/search_users.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,9 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   final List<Widget> _children = [
-    StartingPage(),
+    UserProfile(),
     BuscarServico(),
     CadastroServico(),
     SearchUsers(),
@@ -38,19 +37,20 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.navigation),
-            title: Text('Início'),
+            label: 'Minha Conta',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            title: Text('Buscar'),
+            // ignore: deprecated_member_use
+            label: 'Buscar',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
-            title: Text('Cadastro'),
+            label: 'Cadastro',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Usuários'),
+            label: 'Usuários',
           ),
         ],
       ),

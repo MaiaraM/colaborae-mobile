@@ -13,7 +13,6 @@ class UserModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter('/', child: (_, args) => HomePage()),
         ModularRouter('/buscar_servico', child: (_, __) => BuscarServico()),
         ModularRouter('/service_register', child: (_, __) => CadastroServico()),
         ModularRouter('/search_services', child: (_, __) => SearchService()),

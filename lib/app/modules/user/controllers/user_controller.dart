@@ -1,5 +1,7 @@
 import 'package:colaborae/app/modules/user/models/user_model.dart';
 import 'package:colaborae/app/modules/user/repositories/user_repository.dart';
+import 'package:colaborae/app/shared/service/shared_local_storage_service.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mobx/mobx.dart';
 
 part 'user_controller.g.dart';
@@ -8,8 +10,9 @@ class UserController = _UserController with _$UserController;
 
 abstract class _UserController with Store {
   final UserRepository repository;
+  final SharedLocalStorageService localStorage;
 
-  _UserController(this.repository);
+  _UserController(this.repository, this.localStorage);
 
   @observable
   UserModel user;
@@ -21,6 +24,16 @@ abstract class _UserController with Store {
   getUser(String uuid) async {
     loading = true;
     dynamic user = await repository.getUser(uuid);
+    loading = false;
+  }
+
+  @action
+  getUserLogin() async {
+    loading = true;
+    var token = await localStorage.get("auth_token");
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+    dynamic user = await repository.getUser(decodedToken["sub"]);
+    this.user = UserModel.fromJson(user);
     loading = false;
   }
 

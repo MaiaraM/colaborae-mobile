@@ -20,7 +20,7 @@ class _MyHomePageState extends State<SplashScreenPage> {
     super.initState();
     authController.getIsAuth();
     Timer(Duration(seconds: 5), () {
-      Modular.to.popAndPushNamed("/start");
+      Modular.to.popAndPushNamed("/home");
     });
   }
 
