@@ -5,6 +5,7 @@ class Field extends StatelessWidget {
   Field({
     @required this.label,
     this.hint,
+    this.showText,
     this.icon,
     this.lines,
     this.controller,
@@ -12,6 +13,7 @@ class Field extends StatelessWidget {
   });
 
   final String label;
+  final bool showText;
   final String hint;
   final Widget icon;
   final int lines;
@@ -23,7 +25,7 @@ class Field extends StatelessWidget {
     return TextField(
       maxLines: lines,
       controller: controller,
-      obscureText: label == 'Senha' ? true : false,
+      obscureText: showText != null ? showText : false,
       enableSuggestions: label == 'Senha' ? false : true,
       autocorrect: label == 'Senha' ? false : true,
       decoration: InputDecoration(

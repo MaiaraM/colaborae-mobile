@@ -43,15 +43,16 @@ class _UserRegisterState extends State<UserRegister> {
 
       var response = await dio.post("/users", data: body);
       if (response.statusCode == 201) {
-        String responseString = response.data;
-        print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
+        // String responseString = response.data;
+        // print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
         print(response.statusCode);
-        return userModelFromJson(responseString);
+        Modular.to.pushNamed("/login");
+        //return userModelFromJson(responseString);
       } else {
         print('CRIAÇÃO DE USUÁRIO FALHOU.');
         print(response.statusCode);
-        return null;
       }
+      return null;
     } catch (e) {
       print(e);
     }

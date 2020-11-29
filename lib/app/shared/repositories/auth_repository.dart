@@ -1,19 +1,17 @@
 import 'package:colaborae/app/modules/login/models/login.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:colaborae/app/shared/repositories/BaseRepository.dart';
 
-import 'auth_repository_interface.dart';
+class AuthRepository {
+  final BaseRepository baseRepository;
 
-class AuthRepository implements IAuthRepository {
-  final Dio dio;
-
-  AuthRepository(this.dio);
+  AuthRepository(this.baseRepository);
 
   @override
   Future<String> getToken(username, password) async {
     try {
-      var response = await dio.post("/login",
-          data:
+      var response = await baseRepository.post(
+          url: "/login",
+          body:
               new LoginModel(username: username, password: password).toJson());
       if (response.headers.value("authorization").isNotEmpty) {
         return response.headers.value("authorization");

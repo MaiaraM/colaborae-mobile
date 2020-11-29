@@ -1,10 +1,11 @@
-import 'package:colaborae/app/shared/auth/auth_controller.dart';
+import 'package:colaborae/app/modules/login/controllers/auth_controller.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:colaborae/app/shared/components/big_button.dart';
 import 'package:colaborae/app/shared/components/field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final loginRepository = Modular.get<AuthController>();
+  final loginController = Modular.get<AuthController>();
 
   Widget Spacing(double h) {
     return SizedBox(
@@ -26,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   String email = '';
   String senha = '';
   String message = '';
+  bool ocultPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,16 @@ class _LoginPageState extends State<LoginPage> {
                       letterSpacing: 1.0,
                     ),
                   ),
+                  Observer(builder: (_) {
+                    return loginController.erro
+                        ? Text(
+                            "Ops! Alguma informação está incorreta",
+                            style: TextStyle(color: Colors.deepOrange),
+                          )
+                        : SizedBox(
+                            height: 2,
+                          );
+                  }),
                   Spacing(30.0),
                   Field(
                     label: 'E-mail',
@@ -67,9 +79,15 @@ class _LoginPageState extends State<LoginPage> {
                   Field(
                     label: 'Senha',
                     hint: 'Digite sua senha',
-                    icon: Icon(
-                      Icons.lock,
-                      color: gray,
+                    showText: ocultPassword,
+                    icon: GestureDetector(
+                      onTap: () => setState(() {
+                        ocultPassword = !ocultPassword;
+                      }),
+                      child: Icon(
+                        ocultPassword ? Icons.remove_red_eye : Icons.lock,
+                        color: gray,
+                      ),
                     ),
                     lines: 1,
                     keyboardInputType: TextInputType.emailAddress,
@@ -90,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/user_register');
+                          Modular.to.pushNamed('/user_register');
                         },
                         child: Text(
                           'Cadastre-se!',
@@ -105,17 +123,20 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  Text(
-                    loginRepository.auth_token ? "Erro ao Logar" : message,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Spacing(20.0),
+                  Observer(builder: (_) {
+                    return loginController.loading
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(),
+                          )
+                        : SizedBox(
+                            height: 2,
+                          );
+                  }),
                   BigButton(
                     text: 'ENTRAR',
                     onPressed: () async {
-                      makeLogin();
+                      await makeLogin();
                     },
                   ),
                 ],
@@ -127,12 +148,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void makeLogin() {
-    email = emailController.text;
-    senha = senhaController.text;
-    setState(() {
-      message = 'Por favor, aguarde...';
-    });
-    loginRepository.login(email, senha);
+  Future<void> makeLogin() async {
+    await loginController.login(emailController.text, senhaController.text);
+    if (loginController.auth_token) {
+      Modular.to.popAndPushNamed("/");
+    }
   }
 }

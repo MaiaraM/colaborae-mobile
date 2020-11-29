@@ -96,7 +96,7 @@ class Address {
   DateTime modifiedAt;
   dynamic deletedAt;
   bool active;
-  Address address;
+  String address;
   dynamic block;
   dynamic number;
   String city;

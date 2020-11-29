@@ -1,4 +1,4 @@
-import 'package:colaborae/app/shared/auth/repositories/auth_repository.dart';
+import 'package:colaborae/app/shared/repositories/auth_repository.dart';
 import 'package:colaborae/app/shared/service/shared_local_storage_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,26 +13,38 @@ abstract class _AuthController with Store {
   _AuthController(this.repository, this.localStorage);
 
   @observable
-  bool auth_token = false;
+  bool auth_token;
+
+  @observable
+  bool loading = false;
+
+  @observable
+  bool erro = false;
 
   @action
   login(String username, String password) async {
+    loading = true;
     final token = await repository.getToken(username, password);
     if (token != null) {
       localStorage.put("auth_token", token);
       auth_token = true;
+      erro = false;
     } else {
       auth_token = false;
+      erro = true;
     }
+    loading = false;
   }
 
   @action
-  Future logout(String username, String password) async {
-    localStorage.delete("auth_token");
+  logout() async {
+    await localStorage.delete("auth_token");
+    auth_token = null;
   }
 
   @action
-  Future<String> isUserLogin() async {
-    return localStorage.get("auth_token");
+  getIsAuth() async {
+    var token = await localStorage.get("auth_token");
+    auth_token = token != null;
   }
 }

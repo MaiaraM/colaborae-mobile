@@ -1,14 +1,13 @@
+import 'package:colaborae/app/modules/home/home_page.dart';
+import 'package:colaborae/app/modules/service/buscar_servico.dart';
+import 'package:colaborae/app/modules/service/search_services.dart';
+import 'package:colaborae/app/modules/service/service_register_page.dart';
+import 'package:colaborae/app/modules/user/pages/search_users.dart';
+import 'package:colaborae/app/modules/user/pages/user_profile_page.dart';
+import 'package:colaborae/app/modules/user/pages/worker_profile.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../service/buscar_servico.dart';
-import '../service/search_services.dart';
-import '../user/pages/search_users.dart';
-import '../service/service_register_page.dart';
-import '../user/pages/user_profile_page.dart';
-import '../user/pages/worker_profile.dart';
-import 'home_page.dart';
-
-class HomeModule extends ChildModule {
+class UserModule extends ChildModule {
   @override
   List<Bind> get binds => [];
 
@@ -21,4 +20,6 @@ class HomeModule extends ChildModule {
         ModularRouter('/worker_profile', child: (_, __) => WorkerProfile()),
         ModularRouter('/search_user', child: (_, __) => SearchUsers()),
       ];
+
+  static Inject get to => Inject<UserModule>.of();
 }

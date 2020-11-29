@@ -94,30 +94,30 @@ class _StartingPageState extends State<StartingPage> {
                   ),
                 ),
                 Spacing(20.0),
-                Card(
-                  color: Colors.white,
-                  child: InkWell(
-                    splashColor: mainPurple,
-                    onTap: () {
-                      Navigator.pushNamed(context, '/user_register');
-                      //COMEÇAR button action here
-                    },
-                    child: ListTile(
-                      title: Center(
-                        child: Text(
-                          'Cadastrar Usuário',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      trailing: Icon(Icons.arrow_forward),
-                    ),
-                  ),
-                ),
-                Spacing(20.0),
+                // Card(
+                //   color: Colors.white,
+                //   child: InkWell(
+                //     splashColor: mainPurple,
+                //     onTap: () {
+                //       Navigator.pushNamed(context, '/user_register');
+                //       //COMEÇAR button action here
+                //     },
+                //     child: ListTile(
+                //       title: Center(
+                //         child: Text(
+                //           'Cadastrar Usuário',
+                //           style: TextStyle(
+                //             color: Colors.black,
+                //             fontSize: 20.0,
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //       ),
+                //       trailing: Icon(Icons.arrow_forward),
+                //     ),
+                //   ),
+                // ),
+                // Spacing(20.0),
                 Card(
                   color: Colors.white,
                   child: InkWell(
