@@ -46,6 +46,13 @@ mixin _$UserController on _UserController, Store {
     return _$getUserAsyncAction.run(() => super.getUser(uuid));
   }
 
+  final _$getUserLoginAsyncAction = AsyncAction('_UserController.getUserLogin');
+
+  @override
+  Future getUserLogin() {
+    return _$getUserLoginAsyncAction.run(() => super.getUserLogin());
+  }
+
   final _$createUserAsyncAction = AsyncAction('_UserController.createUser');
 
   @override

@@ -30,8 +30,8 @@ class AppModule extends MainModule {
         Bind((i) => UserRepository(i.get<BaseRepository>())),
         Bind((i) => UserController(
             i.get<UserRepository>(), i.get<SharedLocalStorageService>())),
-        Bind((i) => AuthController(
-            i.get<AuthRepository>(), i.get<SharedLocalStorageService>())),
+        Bind((i) => AuthController(i.get<AuthRepository>(),
+            i.get<SharedLocalStorageService>(), i.get<UserController>())),
       ];
 
   @override

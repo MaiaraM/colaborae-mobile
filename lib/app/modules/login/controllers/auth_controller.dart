@@ -1,5 +1,7 @@
+import 'package:colaborae/app/modules/user/controllers/user_controller.dart';
 import 'package:colaborae/app/shared/repositories/auth_repository.dart';
 import 'package:colaborae/app/shared/service/shared_local_storage_service.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mobx/mobx.dart';
 
 part 'auth_controller.g.dart';
@@ -9,8 +11,9 @@ class AuthController = _AuthController with _$AuthController;
 abstract class _AuthController with Store {
   final AuthRepository repository;
   final SharedLocalStorageService localStorage;
+  final UserController userController;
 
-  _AuthController(this.repository, this.localStorage);
+  _AuthController(this.repository, this.localStorage, this.userController);
 
   @observable
   bool auth_token;
@@ -27,6 +30,8 @@ abstract class _AuthController with Store {
     final token = await repository.getToken(username, password);
     if (token != null) {
       localStorage.put("auth_token", token);
+      Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+      await userController.getUser(decodedToken["sub"]);
       auth_token = true;
       erro = false;
     } else {

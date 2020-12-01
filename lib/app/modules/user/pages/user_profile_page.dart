@@ -18,6 +18,7 @@ class _UserProfileState extends State<UserProfile> {
   void initState() {
     super.initState();
     if (userController.user == null) userController.getUserLogin();
+    userController.getServiceByUser();
   }
 
   @override
