@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:colaborae/app/shared/utils/constants.dart';
-import 'package:colaborae/app/shared/components/field.dart';
-import 'package:colaborae/app/shared/components/big_button.dart';
+import 'package:colaborae/app/modules/user/controllers/user_controller.dart';
 import 'package:colaborae/app/modules/user/models/user_model.dart';
+import 'package:colaborae/app/shared/components/big_button.dart';
+import 'package:colaborae/app/shared/components/field.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:dio/dio.dart';
 
 class UserRegister extends StatefulWidget {
   @override
@@ -15,53 +12,18 @@ class UserRegister extends StatefulWidget {
 }
 
 class _UserRegisterState extends State<UserRegister> {
-  final dio = Modular.get<Dio>();
+  final userController = Modular.get<UserController>();
 
-  Future<UserModel> createUser(
-      String nome,
-      String sobrenome,
-      String email,
-      String cpf,
-      String rua,
-      String bairro,
-      String cidade,
-      String estado,
-      String senha,
-      String username,
-      String descricao) async {
-    try {
-      var body = jsonEncode({
-        "firstName": nome,
-        "lastName": sobrenome,
-        "email": email,
-        "username": username,
-        "document": cpf,
-        "address": {"address": rua, "city": cidade, "state": estado},
-        "description": descricao,
-        "password": senha
-      });
+  bool createNewUser = false;
 
-      var response = await dio.post("/users", data: body);
-      if (response.statusCode == 201) {
-        // String responseString = response.data;
-        // print('CRIAÇÃO DE USUÁRIO FEITA COM SUCESSO!');
-        print(response.statusCode);
-        Modular.to.pushNamed("/login");
-        //return userModelFromJson(responseString);
-      } else {
-        print('CRIAÇÃO DE USUÁRIO FALHOU.');
-        print(response.statusCode);
-      }
-      return null;
-    } catch (e) {
-      print(e);
+  @override
+  void initState() {
+    super.initState();
+    if (userController.user == null)
+      createNewUser = true;
+    else {
+      nomeController.text = userController.user.firstName;
     }
-  }
-
-  Widget Spacing(double h) {
-    return SizedBox(
-      height: h,
-    );
   }
 
   final nomeController = TextEditingController();
@@ -75,17 +37,34 @@ class _UserRegisterState extends State<UserRegister> {
   final estadoController = TextEditingController();
   final descricaoController = TextEditingController();
 
-  String nome = '';
-  String sobrenome = '';
-  String email = '';
-  String senha = '';
-  String cpf = '';
-  String rua = '';
-  String bairro = '';
-  String cidade = '';
-  String estado = '';
-  String descricao = '';
-  String username = '';
+  Future<UserModel> createUser() async {
+    Address address = new Address(
+        address: ruaController.text,
+        city: cidadeController.text,
+        state: estadoController.text);
+    UserModel newUser = new UserModel(
+        firstName: nomeController.text,
+        lastName: sobrenomeController.text,
+        email: emailController.text,
+        username: emailController.text,
+        document: cpfController.text,
+        address: address,
+        description: descricaoController.text,
+        password: senhaController.text);
+
+    bool createUser = await userController.createUser(newUser);
+    if (createUser) {
+      Modular.to.pushNamed("/login");
+    } else {
+      print("Erro");
+    }
+  }
+
+  Widget Spacing(double h) {
+    return SizedBox(
+      height: h,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +83,7 @@ class _UserRegisterState extends State<UserRegister> {
                 ),
                 Spacing(10.0),
                 Text(
-                  'Faça seu cadastro',
+                  createNewUser ? 'Faça seu cadastro' : 'Edite seus daddos',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
@@ -261,42 +240,7 @@ class _UserRegisterState extends State<UserRegister> {
                 Spacing(20.0),
                 BigButton(
                   text: 'CADASTRAR',
-                  onPressed: () async {
-                    nome = nomeController.text;
-                    sobrenome = sobrenomeController.text;
-                    email = emailController.text;
-                    cpf = cpfController.text;
-                    rua = ruaController.text;
-                    bairro = bairroController.text;
-                    cidade = cidadeController.text;
-                    estado = estadoController.text;
-                    descricao = descricaoController.text;
-                    senha = senhaController.text;
-                    username = emailController.text;
-
-                    // final Address endereco =
-                    // Address(address: rua, city: cidade, state: estado);
-                    try {
-                      print("Botão cadastrar pressionado.");
-                      UserModel user = await createUser(
-                          nome,
-                          sobrenome,
-                          email,
-                          cpf,
-                          rua,
-                          bairro,
-                          cidade,
-                          estado,
-                          senha,
-                          username,
-                          descricao);
-                      if (user != null) {
-                        Navigator.pushNamed(context, '/');
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
+                  onPressed: () async => await createUser(),
                 ),
                 Spacing(20.0),
                 Row(

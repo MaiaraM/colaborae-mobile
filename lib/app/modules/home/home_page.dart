@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            // ignore: deprecated_member_use
             label: 'Buscar',
           ),
           BottomNavigationBarItem(

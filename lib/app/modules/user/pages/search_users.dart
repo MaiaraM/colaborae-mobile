@@ -10,15 +10,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class SearchUsers extends StatefulWidget {
-  // SearchUsers({this.userInput});
-  // final userInput;
-
   @override
   _SearchUsersState createState() => _SearchUsersState();
 }
-
-const base_url = 'http://api-colaborae.herokuapp.com';
-const services_url = '/users';
 
 class _SearchUsersState extends State<SearchUsers> {
   List<Widget> itemsList = [];
@@ -33,17 +27,17 @@ class _SearchUsersState extends State<SearchUsers> {
   }
 
   void searchUser() async {
-    http.Response res = await http.get('$base_url$services_url?page=0&size=99',
-        headers: {'Content-Type': 'application/json'});
-
-    if (res.statusCode == 200) {
-      String data = res.body;
-      var jsonParse = jsonDecode(utf8.decode(data.codeUnits));
-
-      generateUserItem(jsonParse);
-    } else {
-      print(res.statusCode);
-    }
+    // http.Response res = await http.get('$base_url$services_url?page=0&size=99',
+    //     headers: {'Content-Type': 'application/json'});
+    //
+    // if (res.statusCode == 200) {
+    //   String data = res.body;
+    //   var jsonParse = jsonDecode(utf8.decode(data.codeUnits));
+    //
+    //   generateUserItem(jsonParse);
+    // } else {
+    //   print(res.statusCode);
+    // }
   }
 
   void generateUserItem(dynamic json) {

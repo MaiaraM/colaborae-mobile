@@ -18,11 +18,11 @@ class UserRepository {
     }
   }
 
-  Future<String> createUser(UserModel model) async {
+  Future<dynamic> createUser(UserModel model) async {
     try {
       var response = await baseRepository.post(url: "/users/", body: model);
-      if (response.headers.value("authorization").isNotEmpty) {
-        return response.headers.value("authorization");
+      if (response.data != null) {
+        return response.data;
       }
     } catch (e) {
       print(e);
@@ -30,11 +30,11 @@ class UserRepository {
     }
   }
 
-  Future<String> editUser(String uuid, UserModel model) async {
+  Future<dynamic> editUser(String uuid, UserModel model) async {
     try {
       var response = await baseRepository.put(url: "/users/$uuid", body: model);
-      if (response.headers.value("authorization").isNotEmpty) {
-        return response.headers.value("authorization");
+      if (response.data != null) {
+        return response.data;
       }
     } catch (e) {
       print(e);
@@ -42,11 +42,23 @@ class UserRepository {
     }
   }
 
-  Future<String> deleteUser(String uuid) async {
+  Future<dynamic> deleteUser(String uuid) async {
     try {
       var response = await baseRepository.delete(url: "/users/${uuid}");
-      if (response.headers.value("authorization").isNotEmpty) {
-        return response.headers.value("authorization");
+      if (response.data != null) {
+        return response.data;
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<dynamic> findServiceByUuid(String uuid) async {
+    try {
+      var response = await baseRepository.get(url: "/users/$uuid/services");
+      if (response.data != null) {
+        return response.data;
       }
     } catch (e) {
       print(e);

@@ -24,6 +24,7 @@ abstract class _UserController with Store {
   getUser(String uuid) async {
     loading = true;
     dynamic user = await repository.getUser(uuid);
+    this.user = UserModel.fromJson(user);
     loading = false;
   }
 
@@ -32,8 +33,7 @@ abstract class _UserController with Store {
     loading = true;
     var token = await localStorage.get("auth_token");
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-    dynamic user = await repository.getUser(decodedToken["sub"]);
-    this.user = UserModel.fromJson(user);
+    await this.getUser(decodedToken["sub"]);
     loading = false;
   }
 
@@ -42,6 +42,12 @@ abstract class _UserController with Store {
     loading = true;
     dynamic user = await repository.createUser(newUser);
     loading = false;
+    if (user != null) {
+      this.user = UserModel.fromJson(user);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @action
@@ -55,6 +61,13 @@ abstract class _UserController with Store {
   deleteUser(String uuid) async {
     loading = true;
     dynamic user = await repository.deleteUser(uuid);
+    loading = false;
+  }
+
+  @action
+  getServiceByUser() async {
+    loading = true;
+    dynamic user = await repository.findServiceByUuid(this.user.uuid);
     loading = false;
   }
 }
