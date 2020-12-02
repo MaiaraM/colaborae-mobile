@@ -3,6 +3,7 @@ import 'package:colaborae/app/modules/user/repositories/user_repository.dart';
 import 'package:colaborae/app/shared/service/shared_local_storage_service.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mobx/mobx.dart';
+import 'package:colaborae/app/modules/service/models/service_model.dart';
 
 part 'user_controller.g.dart';
 
@@ -11,6 +12,9 @@ class UserController = _UserController with _$UserController;
 abstract class _UserController with Store {
   final UserRepository repository;
   final SharedLocalStorageService localStorage;
+
+  @observable
+  List<ServiceModel> services;
 
   _UserController(this.repository, this.localStorage);
 
@@ -67,7 +71,12 @@ abstract class _UserController with Store {
   @action
   getServiceByUser() async {
     loading = true;
-    dynamic user = await repository.findServiceByUuid(this.user.uuid);
+    List<dynamic> servicesJson =
+        await repository.findServiceByUuid(this.user.uuid);
+    List<ServiceModel> services = new List<ServiceModel>();
+    servicesJson.forEach((e) => services.add(new ServiceModel.fromJson(e)));
+    this.services = services;
     loading = false;
+    return services;
   }
 }
