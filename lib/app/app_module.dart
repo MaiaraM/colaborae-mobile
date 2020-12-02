@@ -1,4 +1,3 @@
-import 'package:colaborae/app/modules/user/user_module.dart';
 import 'package:colaborae/app/pages/splash_page.dart';
 import 'package:colaborae/app/shared/cepSearch/search_address_repository.dart';
 import 'package:colaborae/app/shared/repositories/BaseRepository.dart';
@@ -26,6 +25,7 @@ import 'modules/user/pages/user_profile_page.dart';
 import 'modules/user/pages/user_register_page.dart';
 import 'modules/user/pages/worker_profile.dart';
 import 'modules/user/repositories/user_repository.dart';
+import 'package:colaborae/app/modules/user/pages/user_info.dart';
 
 class AppModule extends MainModule {
   @override
@@ -67,6 +67,7 @@ class AppModule extends MainModule {
           guards: [GuardRoutes()],
         ),
         ModularRouter('/user_register', child: (_, args) => UserRegister()),
+        ModularRouter('/user_info', child: (_, args) => UserInfo()),
       ];
 
   @override
