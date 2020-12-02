@@ -78,8 +78,8 @@ mixin _$UserController on _UserController, Store {
   final _$editUserAsyncAction = AsyncAction('_UserController.editUser');
 
   @override
-  Future editUser(String uuid, UserModel newUser) {
-    return _$editUserAsyncAction.run(() => super.editUser(uuid, newUser));
+  Future editUser(UserModel newUser) {
+    return _$editUserAsyncAction.run(() => super.editUser(newUser));
   }
 
   final _$deleteUserAsyncAction = AsyncAction('_UserController.deleteUser');
@@ -95,6 +95,13 @@ mixin _$UserController on _UserController, Store {
   @override
   Future getServiceByUser() {
     return _$getServiceByUserAsyncAction.run(() => super.getServiceByUser());
+  }
+
+  final _$getInfoCepAsyncAction = AsyncAction('_UserController.getInfoCep');
+
+  @override
+  Future getInfoCep(String cep) {
+    return _$getInfoCepAsyncAction.run(() => super.getInfoCep(cep));
   }
 
   @override

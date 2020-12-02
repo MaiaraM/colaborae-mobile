@@ -55,13 +55,13 @@ class UserModel {
         document: json["document"],
         address: Address.fromJson(json["address"]),
         description: json["description"],
-        favorites: List<dynamic>.from(json["favorites"].map((x) => x)),
+        favorites: json["favorites"] != null
+            ? List<dynamic>.from(json["favorites"].map((x) => x))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         "uuid": uuid,
-        "createAt": createAt.toIso8601String(),
-        "modifiedAt": modifiedAt.toIso8601String(),
         "deletedAt": deletedAt,
         "active": active,
         "firstName": firstName,
@@ -72,7 +72,9 @@ class UserModel {
         "document": document,
         "address": address.toJson(),
         "description": description,
-        "favorites": List<dynamic>.from(favorites.map((x) => x)),
+        "favorites": favorites != null
+            ? List<dynamic>.from(favorites.map((x) => x))
+            : null,
       };
 }
 
@@ -119,8 +121,6 @@ class Address {
 
   Map<String, dynamic> toJson() => {
         "uuid": uuid,
-        "createAt": createAt.toIso8601String(),
-        "modifiedAt": modifiedAt.toIso8601String(),
         "deletedAt": deletedAt,
         "active": active,
         "address": address,
