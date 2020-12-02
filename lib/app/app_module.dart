@@ -2,6 +2,7 @@ import 'package:colaborae/app/modules/user/user_module.dart';
 import 'package:colaborae/app/pages/splash_page.dart';
 import 'package:colaborae/app/shared/repositories/BaseRepository.dart';
 import 'package:colaborae/app/shared/repositories/auth_repository.dart';
+import 'package:colaborae/app/shared/cepSearch/search_address_repository.dart';
 import 'package:colaborae/app/shared/service/shared_local_storage_service.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:colaborae/app/shared/utils/guard_routes.dart';
@@ -25,11 +26,14 @@ class AppModule extends MainModule {
         Bind((i) => Dio(BaseOptions(baseUrl: URL_BASE))),
         Bind((i) =>
             BaseRepository(i.get<Dio>(), i.get<SharedLocalStorageService>())),
+        Bind((i) => SearchAddressRepository(i.get<Dio>())),
         Bind((i) => AuthRepository(i.get<BaseRepository>())),
         Bind((i) => SharedLocalStorageService()),
         Bind((i) => UserRepository(i.get<BaseRepository>())),
         Bind((i) => UserController(
-            i.get<UserRepository>(), i.get<SharedLocalStorageService>())),
+            i.get<UserRepository>(),
+            i.get<SharedLocalStorageService>(),
+            i.get<SearchAddressRepository>())),
         Bind((i) => AuthController(i.get<AuthRepository>(),
             i.get<SharedLocalStorageService>(), i.get<UserController>())),
       ];
