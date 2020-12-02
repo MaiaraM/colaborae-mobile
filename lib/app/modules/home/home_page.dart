@@ -37,18 +37,22 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.navigation),
+            title: Text('Minha Conta'),
             label: 'Minha Conta',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
+            title: Text('Buscar'),
             label: 'Buscar',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
+            title: Text('Cadastro'),
             label: 'Cadastro',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
+            title: Text('Usuários'),
             label: 'Usuários',
           ),
         ],
