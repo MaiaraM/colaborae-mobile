@@ -1,3 +1,4 @@
+import 'package:colaborae/app/modules/service/models/service_model.dart';
 import 'package:colaborae/app/modules/user/models/user_model.dart';
 import 'package:colaborae/app/modules/user/repositories/user_repository.dart';
 import 'package:colaborae/app/shared/service/shared_local_storage_service.dart';
@@ -16,6 +17,9 @@ abstract class _UserController with Store {
 
   @observable
   UserModel user;
+
+  @observable
+  List<ServiceModel> services;
 
   @observable
   bool loading = false;
@@ -67,7 +71,13 @@ abstract class _UserController with Store {
   @action
   getServiceByUser() async {
     loading = true;
-    dynamic user = await repository.findServiceByUuid(this.user.uuid);
+    List<dynamic> servicesJson =
+        await repository.findServiceByUuid(this.user.uuid);
+    List<ServiceModel> services = new List<ServiceModel>();
+
+    servicesJson.forEach((e) => services.add(new ServiceModel.fromJson(e)));
+
+    this.services = services;
     loading = false;
   }
 }

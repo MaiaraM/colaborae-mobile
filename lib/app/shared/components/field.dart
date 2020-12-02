@@ -10,10 +10,12 @@ class Field extends StatelessWidget {
     this.lines,
     this.controller,
     this.keyboardInputType,
+    this.readOnly = false,
   });
 
   final String label;
   final bool showText;
+  final bool readOnly;
   final String hint;
   final Widget icon;
   final int lines;
@@ -23,6 +25,8 @@ class Field extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      readOnly: readOnly,
+      enabled: !readOnly,
       maxLines: lines,
       controller: controller,
       obscureText: showText != null ? showText : false,
@@ -34,7 +38,7 @@ class Field extends StatelessWidget {
           color: lightGray,
         ),
         labelText: label,
-        labelStyle: TextStyle(color: Colors.black),
+        labelStyle: TextStyle(color: readOnly ? Colors.grey : Colors.black),
         isDense: true,
         contentPadding: EdgeInsets.all(20.0),
         enabledBorder: OutlineInputBorder(
@@ -55,6 +59,7 @@ class Field extends StatelessWidget {
         ),
       ),
       keyboardType: keyboardInputType,
+      style: TextStyle(color: readOnly ? Colors.grey : Colors.black),
     );
   }
 }

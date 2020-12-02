@@ -24,6 +24,21 @@ mixin _$UserController on _UserController, Store {
     });
   }
 
+  final _$servicesAtom = Atom(name: '_UserController.services');
+
+  @override
+  List<ServiceModel> get services {
+    _$servicesAtom.reportRead();
+    return super.services;
+  }
+
+  @override
+  set services(List<ServiceModel> value) {
+    _$servicesAtom.reportWrite(value, super.services, () {
+      super.services = value;
+    });
+  }
+
   final _$loadingAtom = Atom(name: '_UserController.loading');
 
   @override
@@ -74,10 +89,19 @@ mixin _$UserController on _UserController, Store {
     return _$deleteUserAsyncAction.run(() => super.deleteUser(uuid));
   }
 
+  final _$getServiceByUserAsyncAction =
+      AsyncAction('_UserController.getServiceByUser');
+
+  @override
+  Future getServiceByUser() {
+    return _$getServiceByUserAsyncAction.run(() => super.getServiceByUser());
+  }
+
   @override
   String toString() {
     return '''
 user: ${user},
+services: ${services},
 loading: ${loading}
     ''';
   }

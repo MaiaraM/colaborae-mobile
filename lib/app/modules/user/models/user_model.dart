@@ -37,7 +37,7 @@ class UserModel {
   String username;
   String password;
   String document;
-  dynamic address;
+  Address address;
   String description;
   List<dynamic> favorites;
 

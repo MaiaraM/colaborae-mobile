@@ -16,16 +16,6 @@ class _UserRegisterState extends State<UserRegister> {
 
   bool createNewUser = false;
 
-  @override
-  void initState() {
-    super.initState();
-    if (userController.user == null)
-      createNewUser = true;
-    else {
-      nomeController.text = userController.user.firstName;
-    }
-  }
-
   final nomeController = TextEditingController();
   final sobrenomeController = TextEditingController();
   final emailController = TextEditingController();
@@ -36,6 +26,24 @@ class _UserRegisterState extends State<UserRegister> {
   final cidadeController = TextEditingController();
   final estadoController = TextEditingController();
   final descricaoController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (userController.user == null)
+      createNewUser = true;
+    else {
+      nomeController.text = userController.user.firstName;
+      sobrenomeController.text = userController.user.lastName;
+      emailController.text = userController.user.email;
+      cpfController.text = userController.user.document;
+      ruaController.text = userController.user.address.address;
+      bairroController.text = userController.user.address.block;
+      cidadeController.text = userController.user.address.city;
+      estadoController.text = userController.user.address.state;
+      descricaoController.text = userController.user.description;
+    }
+  }
 
   Future<UserModel> createUser() async {
     Address address = new Address(
@@ -129,6 +137,7 @@ class _UserRegisterState extends State<UserRegister> {
                 ),
                 Spacing(20.0),
                 Field(
+                  readOnly: !createNewUser,
                   label: 'E-mail',
                   hint: 'Digite seu e-mail',
                   icon: Icon(
@@ -141,6 +150,7 @@ class _UserRegisterState extends State<UserRegister> {
                 ),
                 Spacing(20.0),
                 Field(
+                  readOnly: !createNewUser,
                   label: 'CPF',
                   hint: 'Digite seu CPF',
                   icon: Icon(
@@ -152,15 +162,18 @@ class _UserRegisterState extends State<UserRegister> {
                   keyboardInputType: TextInputType.number,
                 ),
                 Spacing(20.0),
-                Field(
-                  label: 'Senha',
-                  icon: Icon(
-                    Icons.lock,
-                    color: gray,
+                Visibility(
+                  visible: createNewUser,
+                  child: Field(
+                    label: 'Senha',
+                    icon: Icon(
+                      Icons.lock,
+                      color: gray,
+                    ),
+                    lines: 1,
+                    hint: 'Digite uma nova senha',
+                    controller: senhaController,
                   ),
-                  lines: 1,
-                  hint: 'Digite uma nova senha',
-                  controller: senhaController,
                 ),
                 Spacing(30.0),
                 Row(

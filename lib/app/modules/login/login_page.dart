@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> makeLogin() async {
     await loginController.login(emailController.text, senhaController.text);
     if (loginController.auth_token) {
-      Modular.to.popAndPushNamed("/");
+      Modular.to.popAndPushNamed("/home");
     }
   }
 }
