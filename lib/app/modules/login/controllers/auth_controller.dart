@@ -30,8 +30,7 @@ abstract class _AuthController with Store {
     final token = await repository.getToken(username, password);
     if (token != null) {
       localStorage.put("auth_token", token);
-      Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-      await userController.getUser(decodedToken["sub"]);
+      await setUserController(token);
       auth_token = true;
       erro = false;
     } else {
@@ -51,5 +50,11 @@ abstract class _AuthController with Store {
   getIsAuth() async {
     var token = await localStorage.get("auth_token");
     auth_token = token != null;
+    if (token != null) await setUserController(token);
+  }
+
+  void setUserController(String token) async {
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+    await userController.getUser(decodedToken["sub"]);
   }
 }

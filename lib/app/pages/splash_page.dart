@@ -16,7 +16,7 @@ class _MyHomePageState extends State<SplashScreenPage> {
   final authController = Modular.get<AuthController>();
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
     authController.getIsAuth();
     Timer(Duration(seconds: 5), () {
