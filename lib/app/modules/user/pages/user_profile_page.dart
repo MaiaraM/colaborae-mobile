@@ -4,8 +4,8 @@ import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:colaborae/app/modules/service/models/service_model.dart';
+import 'package:colaborae/app/modules/login/controllers/auth_controller.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -14,6 +14,7 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   final userController = Modular.get<UserController>();
+  final authController = Modular.get<AuthController>();
   List<ServiceModel> servicesRes = [];
 
   @override
@@ -47,13 +48,13 @@ class _UserProfileState extends State<UserProfile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                userController.user.firstName,
+                                '${userController.user.firstName},',
                                 style: TextStyle(
                                   fontSize: 20,
                                 ),
                               ),
                               Text(
-                                'bem-vinda!',
+                                'bem-vindo(a)!',
                                 style: TextStyle(
                                   fontSize: 22,
                                   height: 1.2,
@@ -64,18 +65,6 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                           Row(
                             children: [
-                              Ink(
-                                decoration: ShapeDecoration(
-                                  color: lightPink,
-                                  shape: CircleBorder(),
-                                ),
-                                child: IconButton(
-                                  icon: SvgPicture.asset('images/svg/edit.svg'),
-                                  onPressed: () =>
-                                      Modular.to.pushNamed("/user_register"),
-                                ),
-                              ),
-                              SizedBox(width: 10.0),
                               Ink(
                                 decoration: ShapeDecoration(
                                   color: lightPink,
@@ -100,7 +89,12 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                   // Logout
                                   onPressed: () {
-                                    print("Botão logout");
+                                    try {
+                                      authController.logout();
+                                      Modular.to.pushNamed("/login");
+                                    } catch (e) {
+                                      print(e);
+                                    }
                                   },
                                 ),
                               ),

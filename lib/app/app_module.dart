@@ -11,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../start.dart';
 import 'app_widget.dart';
 import 'modules/home/home_page.dart';
 import 'modules/login/controllers/auth_controller.dart';
@@ -19,6 +18,7 @@ import 'modules/login/login_module.dart';
 import 'modules/user/controllers/user_controller.dart';
 import 'modules/user/pages/user_register_page.dart';
 import 'modules/user/repositories/user_repository.dart';
+import 'modules/user/pages/user_info.dart';
 
 class AppModule extends MainModule {
   @override
@@ -54,6 +54,7 @@ class AppModule extends MainModule {
           guards: [GuardRoutes()],
         ),
         ModularRouter('/user_register', child: (_, __) => UserRegister()),
+        ModularRouter('/user_info', child: (_, __) => UserInfo()),
       ];
 
   @override
