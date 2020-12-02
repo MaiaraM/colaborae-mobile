@@ -17,7 +17,8 @@ abstract class _UserController with Store {
   final SharedLocalStorageService localStorage;
   final SearchAddressRepository searchAddressRepository;
 
-  _UserController(this.repository, this.localStorage, this.searchAddressRepository);
+  _UserController(
+      this.repository, this.localStorage, this.searchAddressRepository);
 
   @observable
   UserModel user;
@@ -84,17 +85,10 @@ abstract class _UserController with Store {
     List<dynamic> servicesJson =
         await repository.findServiceByUuid(this.user.uuid);
     List<ServiceModel> services = new List<ServiceModel>();
-<<<<<<< HEAD
     servicesJson.forEach((e) => services.add(new ServiceModel.fromJson(e)));
     this.services = services;
     loading = false;
     return services;
-=======
-
-    servicesJson.forEach((e) => services.add(new ServiceModel.fromJson(e)));
-
-    this.services = services;
-    loading = false;
   }
 
   @action
@@ -103,6 +97,5 @@ abstract class _UserController with Store {
     CepModel addressInfo = await searchAddressRepository.getInfoByCep(cep);
     loading = false;
     return addressInfo;
->>>>>>> master
   }
 }

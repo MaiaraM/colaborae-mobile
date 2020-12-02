@@ -5,13 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-<<<<<<< HEAD
 import 'package:colaborae/app/modules/service/models/service_model.dart';
-
-import 'dart:convert';
-=======
-import 'package:colaborae/app/shared/utils/constants.dart';
->>>>>>> master
 
 class UserProfile extends StatefulWidget {
   @override
@@ -153,43 +147,9 @@ class _UserProfileState extends State<UserProfile> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-<<<<<<< HEAD
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-=======
-                                      Text(
-                                        'Descrição',
-                                        style: TextStyle(
-                                          color: darkPurple,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.0,
-                                      ),
-                                      Text(
-                                        userController.user.description,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          height: 1.15,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Nota média',
-                                        style: TextStyle(
-                                          color: darkPurple,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Row(
->>>>>>> master
                                         children: [
                                           Text(
                                             'Descrição',

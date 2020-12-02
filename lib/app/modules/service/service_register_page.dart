@@ -30,7 +30,7 @@ Future<ServiceModel> createService() async {
   ServiceModel service = new ServiceModel(
     title: titleController.text,
     description: descController.text,
-    value: priceController.text,
+    value: double.parse(priceController.text),
   );
 }
 
@@ -188,8 +188,7 @@ class _CadastroServicoState extends State<CadastroServico> {
                     category = categoryController;
                     //time = timeController;
                     try {
-                      ServiceModel service = await createService(title, price,
-                          desc, category, userController.user.uuid);
+                      ServiceModel service = await createService();
                     } catch (e) {
                       print(e);
                     }
