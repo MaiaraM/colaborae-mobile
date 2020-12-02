@@ -249,6 +249,12 @@ class _UserProfileState extends State<UserProfile> {
 
                               servicesList.add(SizedBox(height: 15));
                             }
+                            if (servicesList.length == 0) {
+                              return Text(
+                                "Você ainda não oferece serviços.",
+                                style: TextStyle(fontSize: 18, color: gray),
+                              );
+                            }
                             return SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: Column(

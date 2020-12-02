@@ -10,6 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:colaborae/app/modules/help/help.dart';
 
 import 'app_widget.dart';
 import 'modules/home/home_page.dart';
@@ -55,6 +56,7 @@ class AppModule extends MainModule {
         ),
         ModularRouter('/user_register', child: (_, __) => UserRegister()),
         ModularRouter('/user_info', child: (_, __) => UserInfo()),
+        ModularRouter('/help', child: (_, __) => HelpPage()),
       ];
 
   @override

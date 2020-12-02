@@ -1,9 +1,9 @@
 import 'package:colaborae/app/modules/service/buscar_servico.dart';
 import 'package:colaborae/app/modules/service/service_register_page.dart';
-import 'package:colaborae/app/modules/user/pages/search_users.dart';
 import 'package:colaborae/app/modules/user/pages/user_profile_page.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:colaborae/app/modules/help/help.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,10 +13,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    UserProfile(),
+    HelpPage(),
     BuscarServico(),
     CadastroServico(),
-    SearchUsers(),
+    UserProfile(),
   ];
 
   void onTabTapped(int index) {
@@ -36,8 +36,8 @@ class _HomePageState extends State<HomePage> {
         fixedColor: mainPurple,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.navigation),
-            label: 'Minha Conta',
+            icon: Icon(Icons.help),
+            label: 'Ajuda',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
@@ -45,11 +45,11 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
-            label: 'Cadastro',
+            label: 'Novo serviço',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Usuários',
+            label: 'Meu perfil',
           ),
         ],
       ),

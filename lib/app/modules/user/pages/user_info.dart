@@ -40,15 +40,38 @@ class _UserInfoState extends State<UserInfo> {
                         fontSize: 24,
                       ),
                     ),
-                    Ink(
-                      decoration: ShapeDecoration(
-                        color: lightPink,
-                        shape: CircleBorder(),
-                      ),
-                      child: IconButton(
-                        icon: SvgPicture.asset('images/svg/edit.svg'),
-                        onPressed: () => Modular.to.pushNamed("/user_register"),
-                      ),
+                    Row(
+                      children: [
+                        Ink(
+                          decoration: ShapeDecoration(
+                            color: lightPink,
+                            shape: CircleBorder(),
+                          ),
+                          child: IconButton(
+                            icon: SvgPicture.asset('images/svg/edit.svg'),
+                            onPressed: () =>
+                                Modular.to.pushNamed("/user_register"),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Ink(
+                          decoration: ShapeDecoration(
+                            color: lightPink,
+                            shape: CircleBorder(),
+                          ),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.delete_forever,
+                              size: 24,
+                              color: red,
+                            ),
+                            onPressed: () => print(
+                                "Deslogar -> deletar -> redirecionar para login"),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
