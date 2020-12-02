@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'dart:convert';
 
+import 'controllers/service_controller.dart';
 import 'models/service_model.dart';
 
 class CadastroServico extends StatefulWidget {
@@ -35,7 +36,7 @@ Future<ServiceModel> createService() async {
 }
 
 class _CadastroServicoState extends State<CadastroServico> {
-  final userController = Modular.get<UserController>();
+  final serviceController = Modular.get<ServiceController>();
 
   Widget Spacing(double h) {
     return SizedBox(
@@ -49,6 +50,10 @@ class _CadastroServicoState extends State<CadastroServico> {
   double price;
   DateTime time;
   String desc = '';
+
+  final titleController = TextEditingController();
+  final descController = TextEditingController();
+  final priceController = TextEditingController();
 
   List<String> categories = [
     'Comida',
@@ -65,20 +70,6 @@ class _CadastroServicoState extends State<CadastroServico> {
   ];
 
   String selectedCategory = "Comida";
-
-  /*Future _pickTime() async {
-    DateTime horario = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2020),
-        lastDate: DateTime(2022));
-    if (horario != null) {
-      setState(() {
-        timeController = horario;
-        print(timeController);
-      });
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -176,24 +167,27 @@ class _CadastroServicoState extends State<CadastroServico> {
                 BigButton(
                   text: 'CADASTRAR SERVIÇO',
                   onPressed: () async {
-                    print('botão CADASTRAR SERVIÇO acionado');
+                    ServiceModel newService = new ServiceModel(
+                        title: titleController.text,
+                        description: descController.text,
+                        value: num.tryParse(priceController.text)?.toDouble());
 
-                    title = titleController.text;
-                    print(title);
-                    priceStr = priceController.text;
-                    price = num.tryParse(priceStr)?.toDouble();
-                    print(price);
-                    desc = descController.text;
-                    print(desc);
-                    category = categoryController;
-                    //time = timeController;
-                    try {
-                      ServiceModel service = await createService();
-                    } catch (e) {
-                      print(e);
+                    if (titleController.text == null ||
+                        newService.value == null) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("Está faltando alguma informação"),
+                      ));
+                    } else {
+                      bool servico =
+                          await serviceController.createService(newService);
+                      if (servico) {
+                        Modular.to.popAndPushNamed('/home');
+                      } else {
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text("Ocorre Algum erro ao criar o serviço"),
+                        ));
+                      }
                     }
-
-                    Navigator.pushNamed(context, '/buscar_servico');
                   },
                 ),
                 Spacing(30.0),

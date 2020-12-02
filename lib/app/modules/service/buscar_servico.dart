@@ -9,7 +9,6 @@ import 'dart:async';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:colaborae/app/shared/components/category_card.dart';
 import 'package:colaborae/app/modules/service/search_services.dart';
-//import 'package:colaborae/components/bottom_nav_bar.dart';
 import 'package:colaborae/app/shared/components/tab_header.dart';
 
 class BuscarServico extends StatefulWidget {
