@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 
 class BigButton extends StatelessWidget {
-  BigButton({@required this.text, this.onPressed});
+  BigButton({@required this.text, this.onPressed, this.loading = false});
 
   final String text;
+  final bool loading;
   final Function onPressed;
 
   @override
@@ -18,15 +19,17 @@ class BigButton extends StatelessWidget {
         ),
         height: 60.0,
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 22.0,
-              letterSpacing: 1.0,
-            ),
-          ),
+          child: loading
+              ? CircularProgressIndicator()
+              : Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.0,
+                    letterSpacing: 1.0,
+                  ),
+                ),
         ),
       ),
     );

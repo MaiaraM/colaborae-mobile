@@ -24,6 +24,21 @@ mixin _$UserController on _UserController, Store {
     });
   }
 
+  final _$servicesAtom = Atom(name: '_UserController.services');
+
+  @override
+  List<ServiceModel> get services {
+    _$servicesAtom.reportRead();
+    return super.services;
+  }
+
+  @override
+  set services(List<ServiceModel> value) {
+    _$servicesAtom.reportWrite(value, super.services, () {
+      super.services = value;
+    });
+  }
+
   final _$loadingAtom = Atom(name: '_UserController.loading');
 
   @override
@@ -63,8 +78,8 @@ mixin _$UserController on _UserController, Store {
   final _$editUserAsyncAction = AsyncAction('_UserController.editUser');
 
   @override
-  Future editUser(String uuid, UserModel newUser) {
-    return _$editUserAsyncAction.run(() => super.editUser(uuid, newUser));
+  Future editUser(UserModel newUser) {
+    return _$editUserAsyncAction.run(() => super.editUser(newUser));
   }
 
   final _$deleteUserAsyncAction = AsyncAction('_UserController.deleteUser');
@@ -74,10 +89,26 @@ mixin _$UserController on _UserController, Store {
     return _$deleteUserAsyncAction.run(() => super.deleteUser(uuid));
   }
 
+  final _$getServiceByUserAsyncAction =
+      AsyncAction('_UserController.getServiceByUser');
+
+  @override
+  Future getServiceByUser() {
+    return _$getServiceByUserAsyncAction.run(() => super.getServiceByUser());
+  }
+
+  final _$getInfoCepAsyncAction = AsyncAction('_UserController.getInfoCep');
+
+  @override
+  Future getInfoCep(String cep) {
+    return _$getInfoCepAsyncAction.run(() => super.getInfoCep(cep));
+  }
+
   @override
   String toString() {
     return '''
 user: ${user},
+services: ${services},
 loading: ${loading}
     ''';
   }

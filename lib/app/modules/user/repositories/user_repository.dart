@@ -32,7 +32,8 @@ class UserRepository {
 
   Future<dynamic> editUser(String uuid, UserModel model) async {
     try {
-      var response = await baseRepository.put(url: "/users/$uuid", body: model);
+      var response =
+          await baseRepository.put(url: "/users/$uuid", body: model.toJson());
       if (response.data != null) {
         return response.data;
       }
@@ -44,7 +45,7 @@ class UserRepository {
 
   Future<dynamic> deleteUser(String uuid) async {
     try {
-      var response = await baseRepository.delete(url: "/users/${uuid}");
+      var response = await baseRepository.delete(url: "/users/$uuid");
       if (response.data != null) {
         return response.data;
       }

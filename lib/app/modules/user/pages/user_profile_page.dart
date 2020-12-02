@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:colaborae/app/shared/utils/constants.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -130,7 +131,7 @@ class _UserProfileState extends State<UserProfile> {
                                         height: 5.0,
                                       ),
                                       Text(
-                                        'Sou estudante de música, toco piano e violino e dou aulas de música. Entre em contato comigo para combinarmos local e horário das aulas!',
+                                        userController.user.description,
                                         style: TextStyle(
                                           color: Colors.black,
                                           height: 1.15,
