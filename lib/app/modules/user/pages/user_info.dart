@@ -67,8 +67,8 @@ class _UserInfoState extends State<UserInfo> {
                               size: 24,
                               color: red,
                             ),
-                            onPressed: () => print(
-                                "Deslogar -> deletar -> redirecionar para login"),
+                            onPressed: () =>
+                                print("Deslogar -> deletar -> redirecionar"),
                           ),
                         ),
                       ],
