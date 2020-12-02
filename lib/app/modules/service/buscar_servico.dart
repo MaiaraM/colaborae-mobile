@@ -31,7 +31,6 @@ class _BuscarServicoState extends State<BuscarServico> {
             children: [
               // Título da aba
               TabHeader(
-                icon: Icons.arrow_back,
                 title: 'Buscar serviço',
                 haveButton: false,
               ),

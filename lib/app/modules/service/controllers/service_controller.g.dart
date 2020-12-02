@@ -55,12 +55,13 @@ mixin _$ServiceController on _ServiceController, Store {
         .run(() => super.createService(newService));
   }
 
-  final _$editServiceAsyncAction =
-      AsyncAction('_ServiceController.editService');
+  final _$searchServiceAsyncAction =
+      AsyncAction('_ServiceController.searchService');
 
   @override
-  Future editService(ServiceModel newService) {
-    return _$editServiceAsyncAction.run(() => super.editService(newService));
+  Future searchService(String searchText) {
+    return _$searchServiceAsyncAction
+        .run(() => super.searchService(searchText));
   }
 
   final _$deleteServiceAsyncAction =

@@ -181,7 +181,7 @@ class _CadastroServicoState extends State<CadastroServico> {
                       bool servico =
                           await serviceController.createService(newService);
                       if (servico) {
-                        Modular.to.popAndPushNamed('/home');
+                        Modular.to.pushNamed('/home');
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
                           content: Text("Ocorre Algum erro ao criar o serviço"),

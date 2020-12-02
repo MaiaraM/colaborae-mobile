@@ -55,4 +55,17 @@ class ServiceRepository {
       return null;
     }
   }
+
+  Future<dynamic> searchService(String searchText) async {
+    try {
+      var response =
+          await baseRepository.get(url: '/services/search?title=$searchText');
+      if (response.data != null) {
+        return response.data;
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

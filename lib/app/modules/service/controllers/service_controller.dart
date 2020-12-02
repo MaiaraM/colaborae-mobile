@@ -41,16 +41,16 @@ abstract class _ServiceController with Store {
   }
 
   @action
-  editService(ServiceModel newService) async {
-    // loading = true;
-    // dynamic user = await repository.editService(this.user.uuid, newService);
-    // loading = false;
-    // if (user != null) {
-    //   this.user = ServiceModel.fromJson(user);
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+  searchService(String searchText) async {
+    loading = true;
+    List<dynamic> servicesJson = new List<dynamic>();
+    servicesJson = await repository.searchService(searchText);
+    if (servicesJson != null) {
+      List<ServiceModel> services = new List<ServiceModel>();
+      servicesJson.forEach((e) => services.add(new ServiceModel.fromJson(e)));
+      this.services = services;
+    }
+    loading = false;
   }
 
   @action
