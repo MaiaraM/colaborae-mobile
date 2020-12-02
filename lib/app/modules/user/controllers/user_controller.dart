@@ -1,9 +1,11 @@
+import 'package:colaborae/app/modules/service/models/service_model.dart';
 import 'package:colaborae/app/modules/user/models/user_model.dart';
 import 'package:colaborae/app/modules/user/repositories/user_repository.dart';
+import 'package:colaborae/app/shared/cepSearch/CepModel.dart';
+import 'package:colaborae/app/shared/cepSearch/search_address_repository.dart';
 import 'package:colaborae/app/shared/service/shared_local_storage_service.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mobx/mobx.dart';
-import 'package:colaborae/app/modules/service/models/service_model.dart';
 
 part 'user_controller.g.dart';
 
@@ -12,14 +14,16 @@ class UserController = _UserController with _$UserController;
 abstract class _UserController with Store {
   final UserRepository repository;
   final SharedLocalStorageService localStorage;
+  final SearchAddressRepository searchAddressRepository;
 
-  @observable
-  List<ServiceModel> services;
-
-  _UserController(this.repository, this.localStorage);
+  _UserController(
+      this.repository, this.localStorage, this.searchAddressRepository);
 
   @observable
   UserModel user;
+
+  @observable
+  List<ServiceModel> services;
 
   @observable
   bool loading = false;
@@ -55,10 +59,16 @@ abstract class _UserController with Store {
   }
 
   @action
-  editUser(String uuid, UserModel newUser) async {
+  editUser(UserModel newUser) async {
     loading = true;
-    dynamic user = await repository.editUser(uuid, newUser);
+    dynamic user = await repository.editUser(this.user.uuid, newUser);
     loading = false;
+    if (user != null) {
+      this.user = UserModel.fromJson(user);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @action
@@ -74,9 +84,18 @@ abstract class _UserController with Store {
     List<dynamic> servicesJson =
         await repository.findServiceByUuid(this.user.uuid);
     List<ServiceModel> services = new List<ServiceModel>();
+
     servicesJson.forEach((e) => services.add(new ServiceModel.fromJson(e)));
+
     this.services = services;
     loading = false;
-    return services;
+  }
+
+  @action
+  getInfoCep(String cep) async {
+    loading = true;
+    CepModel addressInfo = await searchAddressRepository.getInfoByCep(cep);
+    loading = false;
+    return addressInfo;
   }
 }
