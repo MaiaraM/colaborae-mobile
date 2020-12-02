@@ -19,6 +19,7 @@ class ServiceModel {
     this.title,
     this.description,
     this.value,
+    this.category,
     this.time,
     this.user,
     this.rating,
@@ -31,7 +32,8 @@ class ServiceModel {
   bool active;
   String title;
   String description;
-  int value;
+  double value;
+  String category;
   DateTime time;
   User user;
   List<dynamic> rating;
@@ -45,6 +47,7 @@ class ServiceModel {
         title: json["title"],
         description: json["description"],
         value: json["value"],
+        category: json["category"],
         time: json["time"],
         user: User.fromJson(json["user"]),
         rating: List<dynamic>.from(json["rating"].map((x) => x)),
@@ -59,6 +62,7 @@ class ServiceModel {
         "title": title,
         "description": description,
         "value": value,
+        "category": category,
         "time": time,
         "user": user.toJson(),
         "rating": List<dynamic>.from(rating.map((x) => x)),

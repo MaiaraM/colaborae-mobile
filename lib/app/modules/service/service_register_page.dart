@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:colaborae/app/shared/utils/constants.dart';
 import 'package:colaborae/app/shared/components/tab_header.dart';
 import 'package:colaborae/app/shared/components/field.dart';
 import 'package:colaborae/app/shared/components/big_button.dart';
-//import 'package:colaborae/components/bottom_nav_bar.dart';
-import 'package:http/http.dart' as http;
+import 'package:colaborae/app/shared/repositories/BaseRepository.dart';
+import 'package:colaborae/app/modules/user/controllers/user_controller.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'dart:convert';
 
 import 'models/service_model.dart';
@@ -14,49 +19,29 @@ class CadastroServico extends StatefulWidget {
   _CadastroServicoState createState() => _CadastroServicoState();
 }
 
-Future<ServiceModel> createService(
-    String title, double price, String desc, String uuid) async {
-  final String baseUrl = 'https://api-colaborae.herokuapp.com/services/';
+final titleController = TextEditingController();
+var categoryController;
+final priceController = TextEditingController();
+DateTime timeController;
+final descController = TextEditingController();
 
-  try {
-    Map<String, String> headers = {
-      "Content-type": "application/json; charset=utf-8"
-    };
-    var body = jsonEncode({
-      "title": title,
-      "description": desc,
-      "value": price,
-      // "time": time,
-      "user": {"uuid": uuid}
-    });
-
-    var response = await http.post(baseUrl, headers: headers, body: body);
-    if (response.statusCode == 201) {
-      String responseString = response.body;
-      print('Status code: ${response.statusCode}');
-      print('CRIAÇÃO DE SERVIÇO FEITA COM SUCESSO!');
-      return serviceModelFromJson(responseString);
-    } else {
-      print('CRIAÇÃO DE SERVIÇO FALHOU.');
-      return null;
-    }
-  } catch (e) {
-    print(e);
-  }
+Future<ServiceModel> createService() async {
+  final userController = Modular.get<UserController>();
+  ServiceModel service = new ServiceModel(
+    title: titleController.text,
+    description: descController.text,
+    value: priceController.text,
+  );
 }
 
 class _CadastroServicoState extends State<CadastroServico> {
+  final userController = Modular.get<UserController>();
+
   Widget Spacing(double h) {
     return SizedBox(
       height: h,
     );
   }
-
-  final titleController = TextEditingController();
-  var categoryController;
-  final priceController = TextEditingController();
-  DateTime timeController;
-  final descController = TextEditingController();
 
   String title = '';
   String category = '';
@@ -200,13 +185,11 @@ class _CadastroServicoState extends State<CadastroServico> {
                     print(price);
                     desc = descController.text;
                     print(desc);
-                    //category = categoryController;
+                    category = categoryController;
                     //time = timeController;
-
                     try {
                       ServiceModel service = await createService(title, price,
-                          desc, "3339c507-2404-43e3-a43f-50b077b8f4ba");
-                      print('Serviço cadastrado com sucesso!');
+                          desc, category, userController.user.uuid);
                     } catch (e) {
                       print(e);
                     }
