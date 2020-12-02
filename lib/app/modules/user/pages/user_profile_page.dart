@@ -16,38 +16,13 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   final userController = Modular.get<UserController>();
-  List<Widget> servicesList = [];
   List<ServiceModel> servicesRes = [];
 
   @override
   void initState() {
     super.initState();
     if (userController.user == null) userController.getUserLogin();
-    generateServiceItem(userController.services);
-  }
-
-  void generateServiceItem(List<dynamic> services) {
-    for (int i = 0; i < services.length; i++) {
-      var title, description, price;
-
-      title = services[i]['title'];
-      description = services[i]['description'];
-      price = services[i]['value'];
-
-      servicesList.add(ServiceItem(
-          backgroundColor: outros,
-          image: 'imagens/tea_S.png',
-          title: title,
-          description: description,
-          price: price,
-          onPress: () {
-            print('Serviço selecionado.');
-          }));
-
-      servicesList.add(SizedBox(height: 15));
-
-      setState(() {});
-    }
+    userController.getServiceByUser();
   }
 
   @override
@@ -258,6 +233,30 @@ class _UserProfileState extends State<UserProfile> {
                       Observer(
                         builder: (_) {
                           if (userController.services != null) {
+                            List<Widget> servicesList = [];
+
+                            for (int i = 0;
+                                i < userController.services.length;
+                                i++) {
+                              var title, description, price;
+
+                              title = userController.services[i].title;
+                              description =
+                                  userController.services[i].description;
+                              price = userController.services[i].value;
+
+                              servicesList.add(ServiceItem(
+                                  backgroundColor: outros,
+                                  image: 'imagens/tea_S.png',
+                                  title: title,
+                                  description: description,
+                                  price: price,
+                                  onPress: () {
+                                    print('Serviço selecionado.');
+                                  }));
+
+                              servicesList.add(SizedBox(height: 15));
+                            }
                             return SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: Column(
